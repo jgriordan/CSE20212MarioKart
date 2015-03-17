@@ -19,13 +19,10 @@ void OnDraw(){
 	glutSwapBuffers();
 }
 
-void OnInit(){
-	glEnable( GL_DEPTH_TEST );
-}
-
 // do nothing on exit (for now)
 void OnExit(){}
 
+// part that actually runs
 int main( int argc, char** argv ){
 	glutInit( &argc, argv );
 	glutInitDisplayMode(GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE);
@@ -33,7 +30,7 @@ int main( int argc, char** argv ){
 	glutCreateWindow( "This will become Mario Kart" );
 	glutDisplayFunc(OnDraw);
 	glutReshapeFunc(OnReshape);
-	OnInit();
+	glEnable( GL_DEPTH_TEST );
 	atexit(OnExit);
 	glutMainLoop();
 	return 0;
