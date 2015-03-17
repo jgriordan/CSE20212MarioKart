@@ -23,6 +23,7 @@ void OnInit(){
 	glEnable( GL_DEPTH_TEST );
 }
 
+// do nothing on exit (for now)
 void OnExit(){}
 
 int main( int argc, char** argv ){
