@@ -1,7 +1,13 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <cmath>
+int myrandom(int m) {
+ 
+	return rand()%m;
+ 
+} 
 void idle(){
+	glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
 	glutPostRedisplay();
 }
 /*void mouse_button(int button, int state, int x, int y){
@@ -14,7 +20,7 @@ void mouse_motion(int x, int y){
 void OnReshape( int w, int h ){
 	if( h == 0 )
 		h = 1;
-	glViewport( 0, 0, w/2, h );
+	glViewport( 0, 0, w, h );
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective( 45, (float)w / h, .1, 100);
@@ -33,17 +39,17 @@ void OnDraw(){
 	glEnable(GL_LIGHTING); 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_COLOR_MATERIAL);
-	GLdouble eyeX=10.*cos(angle);
-	GLdouble eyeY=1.;
-	GLdouble eyeZ=0.;
+	GLdouble eyeX=20.*cos(angle);
+	GLdouble eyeY=1.*sin(angle);
+	GLdouble eyeZ=1.*cos(angle);
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
 	gluLookAt( eyeX, eyeY, 5, 0, 0, 0, 0, 1, 0 );
 	glutWireTeapot(1.);
-	//glTranslatef(-2.,0.0,-7.); This is for drawing anoter teapot.
-	//glRotatef(45, 0, 1, 0);	It got pretty tricky so I took it out.
-	//glutWireTeapot(1.);
+	glTranslatef(-2.,0.0,-7.); //This is for drawing anoter teapot.
+	glRotatef(45, 0, 1, 0);	//It got pretty tricky so I took it out.
+	glutWireTeapot(1.);
 	glutSwapBuffers();
 }
 // do nothing on exit (for now)
