@@ -1,15 +1,44 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <cmath>
+static GLdouble eyeX=5.;
+static GLdouble eyeY=10.;
+static GLdouble eyeZ=5.;
+static double angle=0.;
+int red =1.;
+int green = 1.;
+int blue = 0.;
 int myrandom(int m) {
  
 	return rand()%m;
  
 } 
 void idle(){
-	glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
+	//glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
 	glutPostRedisplay();
 }
+void processNormalKeys(unsigned char key, int x, int y) {
+	if (key == 27)
+		exit(0);
+	
+}
+void processSpecialKeys(int key, int x, int y){
+	switch(key){
+		case GLUT_KEY_RIGHT:
+                        angle += 360./1000; //Someone figure out the camera
+                        eyeZ = eyeZ + sin(angle);
+                        red = 0.;
+                        blue=1.;
+                        break;
+                case GLUT_KEY_LEFT:
+                        angle -= 360./1000; //Please!!!
+                        eyeZ -= sin(angle);
+                        green=0.;
+                        blue=1.;
+                        break;
+        }
+}
+
 /*void mouse_button(int button, int state, int x, int y){
 	
 }
@@ -28,28 +57,20 @@ void OnReshape( int w, int h ){
 }
 
 void OnDraw(){
-	static double angle = 0.0;
 	glClear( GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT );
-        angle +=  360./100000;
-	int red = 1;
-	int green = 1;
-	int blue = 0;
 	glColor3f(red, green, blue);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_LIGHTING); 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_COLOR_MATERIAL);
-	GLdouble eyeX=20.*cos(angle);
-	GLdouble eyeY=1.*sin(angle);
-	GLdouble eyeZ=1.*cos(angle);
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	gluLookAt( eyeX, eyeY, 5, 0, 0, 0, 0, 1, 0 );
+	gluLookAt( eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0 );
 	glutWireTeapot(1.);
-	glTranslatef(-2.,0.0,-7.); //This is for drawing anoter teapot.
-	glRotatef(45, 0, 1, 0);	//It got pretty tricky so I took it out.
-	glutWireTeapot(1.);
+	//glTranslatef(-2.,0.0,-7.); //This is for drawing anoter teapot.
+	//glRotatef(45, 0, 1, 0);	//It got pretty tricky so I took it out.
+	//glutWireTeapot(1.);
 	glutSwapBuffers();
 }
 // do nothing on exit (for now)
@@ -65,6 +86,8 @@ int main( int argc, char** argv ){
 	glEnable( GL_DEPTH_TEST );
 	atexit(OnExit);
 	glutIdleFunc(idle);
+	glutKeyboardFunc(processNormalKeys);
+	glutSpecialFunc(processSpecialKeys);
 	//glutMouseFunc(mouse_button);
 	//glutMotionFunc(mouse_motion);
 	glutMainLoop();

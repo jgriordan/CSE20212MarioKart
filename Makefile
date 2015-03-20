@@ -1,4 +1,4 @@
-OBJS = main.cpp
+OBJS = Teapot.cpp
 CC = g++
 INCLUDE_PATHS = -I/usr/local/include -I/opt/X11/include
 LIBRARY_PATHS = -L/usr/local/lib -I/opt/X11/lib
