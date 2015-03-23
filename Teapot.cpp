@@ -10,14 +10,14 @@ static double angle=0;
 
 Camera myC;
 
-int red = 1;
-int green = 0;
-int blue = 0;
+float red = 0;
+float green = 1;
+float blue = 1;
 
 int myrandom( int m ){
 	return rand() % m;
 }
- 
+
 void idle(){
 	//glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
 	glutPostRedisplay();
@@ -29,21 +29,19 @@ void processNormalKeys(unsigned char key, int x, int y) {
 
 void processSpecialKeys(int key, int x, int y){
 	switch(key){
-		case GLUT_KEY_RIGHT:
-                        angle += (float)360/1000; //Someone figure out the camera
-                        eyeZ = eyeZ + sin(angle);
-                        red = 0.0;
-                        blue = 1.0;
-			green = 0.0;
-                        break;
-                case GLUT_KEY_LEFT:
-                        angle -= 360./1000; //Please!!!
-                        eyeZ -= sin(angle);
-			red = 0.0;
-                        blue = 0.0;
-                        green = 1.0;
-                        break;
-        }
+	case GLUT_KEY_RIGHT:
+		myC.rotateCCW( 15 );
+		red = 0;
+		blue = 1;
+		green = 0;
+		break;
+	case GLUT_KEY_LEFT:
+		myC.rotateCW( 15 );
+		red = 0;
+		blue = 0;
+		green = 1;
+		break;
+	}
 }
 
 /*void mouse_button(int button, int state, int x, int y){
