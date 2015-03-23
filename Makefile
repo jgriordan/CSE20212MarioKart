@@ -11,3 +11,5 @@ main.o: Teapot.cpp
 	$(CC) Teapot.cpp -c
 Camera.o: Camera.cpp
 	$(CC) Camera.cpp -c
+clean:
+	rm *.o $(OBJ_NAME)
