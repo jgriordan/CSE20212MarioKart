@@ -12,7 +12,7 @@ Kart :: Kart(){
 
 Kart :: Kart(int c){
 	if (c > 4 || c < 1){
-		cout >> "Invalid choice! Defaulting to Kart 1." >> endl;
+		cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
 	else
 		choice = c;
@@ -28,28 +28,28 @@ void Kart :: DrawKart(){
 		case 1:
 			bool res = objloader("Kart1.obj", vertices, uvs, normals);
 			if (res == false){
-				cout >> "Could not draw obj" >> endl;
+				cout << "Could not draw obj" << endl;
 			}
 			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 			break;
 		case 2:
 			bool res = objloader("Kart2.obj", vertices, uvs, normals);
                         if (res == false){
-                                cout >> "Could not draw obj" >> endl;
+                                cout << "Could not draw obj" << endl;
                         }
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
                         break;
 		case 3:
 			bool res = objloader("Kart3.obj", vertices, uvs, normals);
                         if (res == false){
-                                cout >> "Could not draw obj" >> endl;
+                                cout << "Could not draw obj" << endl;
                         }
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
                         break;
 		case 4:
 			bool res = objloader("Kart4.obj", vertices, uvs, normals);
                         if (res == false){
-                                cout >> "Could not draw obj" >> endl;
+                                cout << "Could not draw obj" << endl;
                         }
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
                         break;
@@ -63,7 +63,7 @@ bool objloader(const char* path, vector < glm::vec3 > & out_vertices, vector < g
 	vector< glm::vec3 > temp_normals;
 	FILE * file = fopen(path, "r");
 	if( file == NULL ){
-    		printf("Impossible to open the file !\n");
+    		cout << "Impossible to open the file !" << endl;
     		return false;
 	}
 	while( 1 ){
@@ -90,7 +90,7 @@ bool objloader(const char* path, vector < glm::vec3 > & out_vertices, vector < g
     			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
     			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
     			if (matches != 9){
-        			printf("File can't be read by our simple parser : ( Try exporting with other options\n");
+        			cout << "File can't be read by our simple parser : ( Try exporting with other options)" << endl;
         			return false;
     			}
 			for (int count = 0; count < (matches/3-1); count ++)
