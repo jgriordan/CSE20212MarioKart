@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <cmath>
 #include "Camera.h"
+#include "Track.h"
 
 static GLdouble eyeX=5;
 static GLdouble eyeY=10;
@@ -9,6 +10,7 @@ static GLdouble eyeZ=5;
 static double angle=0;
 
 Camera myC;
+Track myTrack;
 
 float red = 0;
 float green = 1;
@@ -41,6 +43,12 @@ void processSpecialKeys(int key, int x, int y){
 		blue = 0;
 		green = 1;
 		break;
+	case GLUT_KEY_UP:
+		myC.moveForward(10.);
+		break;
+	case GLUT_KEY_DOWN:
+		myC.moveForward(-10);
+		break;
 	}
 }
 
@@ -72,12 +80,12 @@ void OnDraw(){
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	//gluLookAt( eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0 ); // moved to Camera class
 	myC.updateLookAt();
+	glColor3d( red, green, blue );
+	glRotatef(-90,0,1,0);
 	glutSolidTeapot(1);
-	//glTranslatef(-2.,0.0,-7.); //This is for drawing anoter teapot.
-	//glRotatef(45, 0, 1, 0);	//It got pretty tricky so I took it out.
-	//glutWireTeapot(1.);
+	glRotatef(90,0,1,0);
+	myTrack.draw();
 	glutSwapBuffers();
 }
 

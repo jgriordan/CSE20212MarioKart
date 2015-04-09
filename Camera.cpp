@@ -1,9 +1,9 @@
 #include "Camera.h"
 
 Camera::Camera(){
-	eyeX = 5;
-	eyeY = 5;
-	eyeZ = 0;
+	eyeX = 0;
+	eyeY = 10;
+	eyeZ = -20;
 	centerX = 0;
 	centerY = 0;
 	centerZ = 0;
@@ -33,6 +33,15 @@ void Camera::updateLookAt(){
 	gluLookAt( eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0 );
 }
 
+void Camera::KartLocation( float x, float y, float z ){
+	centerX = x;
+	centerY = y;
+	centerZ = z;
+	eyeY = y+5;
+	eyeZ = z-10;
+	eyeX = x;
+}
+
 void Camera::setAngle( float n ){
 	angle = n;
 	while( angle >= 360 )
@@ -49,4 +58,9 @@ void Camera::rotateCCW( float degrees ){
 
 void Camera::rotateCW( float degrees){
 	setAngle( angle + degrees );
+}
+
+void Camera::moveForward( float units ){
+	centerZ += units;
+	eyeZ += units;
 }

@@ -1,4 +1,4 @@
-OBJS = Teapot.o Camera.o
+OBJS = Teapot.o Camera.o Track.o
 CC = g++
 INCLUDE_PATHS = -I/usr/local/include -I/opt/X11/include
 LIBRARY_PATHS = -L/usr/local/lib -I/opt/X11/lib
@@ -11,5 +11,7 @@ main.o: Teapot.cpp
 	$(CC) Teapot.cpp -c
 Camera.o: Camera.cpp
 	$(CC) Camera.cpp -c
+Track.o: Track.cpp
+	$(CC) Track.cpp -c
 clean:
 	rm *.o $(OBJ_NAME)
