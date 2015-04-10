@@ -31,6 +31,7 @@ private:
 	float z_pos;
 	float angle;
 	float acc;
+
 	//bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
 };
 

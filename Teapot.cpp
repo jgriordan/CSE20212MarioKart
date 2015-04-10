@@ -21,6 +21,9 @@ float green = 1;
 float blue = 1;
 
 float angle=90.;
+static float x = 0.0, y = 1.75, z = 5.0;
+static float lx = 0.0, ly = 0.0, lz = -1.0;
+
 int myrandom( int m ){
 	return rand() % m;
 }
