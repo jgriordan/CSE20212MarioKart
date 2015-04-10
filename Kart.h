@@ -13,13 +13,19 @@ public:
 	Kart();
 	Kart(int);
 	void DrawKart();
+	float getX();
+	float getY();
+	float getZ();
+	void setX(float);
+	void setY(float);
+	void setZ(float);
 private:
 	int mushroom;
 	int choice;
-	bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
-}
+	float x_pos;
+	float y_pos;
+	float z_pos;
+	//bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
+};
 
-#endif
-	
-	
-	
+#endif	

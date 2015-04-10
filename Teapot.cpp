@@ -3,22 +3,30 @@
 #include <cmath>
 #include "Camera.h"
 #include "Track.h"
+#include "Kart.h"
 
 static GLdouble eyeX=5;
 static GLdouble eyeY=10;
 static GLdouble eyeZ=5;
 static double angle=0;
 
+float KartX=0.0;
+float KartY=0.0;
+float KartZ=0.0;
+
 Camera myC;
 Track myTrack;
-
+Kart Teapot(1);
 float red = 0;
 float green = 1;
 float blue = 1;
 
+static float x = 0.0, y = 1.75, z = 5.0;
+static float lx = 0.0, ly = 0.0, lz = -1.0;
 int myrandom( int m ){
 	return rand() % m;
 }
+
 
 void idle(){
 	//glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
@@ -32,22 +40,24 @@ void processNormalKeys(unsigned char key, int x, int y) {
 void processSpecialKeys(int key, int x, int y){
 	switch(key){
 	case GLUT_KEY_RIGHT:
-		myC.rotateCCW( 15 );
+		myC.rotateCW( 15 );
 		red = 0;
 		blue = 1;
 		green = 0;
 		break;
 	case GLUT_KEY_LEFT:
-		myC.rotateCW( 15 );
+		myC.rotateCCW( 15 );
 		red = 0;
 		blue = 0;
 		green = 1;
 		break;
 	case GLUT_KEY_UP:
 		myC.moveForward(10.);
+		KartZ+=10.;	
 		break;
 	case GLUT_KEY_DOWN:
 		myC.moveForward(-10);
+		KartZ-=10.;
 		break;
 	}
 }
@@ -82,9 +92,12 @@ void OnDraw(){
 	glLoadIdentity();
 	myC.updateLookAt();
 	glColor3d( red, green, blue );
+	glPushMatrix();
+	glTranslatef(KartX,KartY,KartZ);
 	glRotatef(-90,0,1,0);
-	glutSolidTeapot(1);
+	Teapot.DrawKart();
 	glRotatef(90,0,1,0);
+	glPopMatrix();
 	myTrack.draw();
 	glutSwapBuffers();
 }
