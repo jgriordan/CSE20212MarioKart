@@ -8,55 +8,68 @@ using namespace std;
 Kart :: Kart(){
 	choice = 1;
 	mushroom = 1;
+	x_pos=0.0;
+	y_pos=0.0;
+	z_pos=0.0;
+	angle=M_PI/2;
+	acc=5.;
 }
 
 Kart :: Kart(int c){
 	if (c > 4 || c < 1){
 		cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
+	}
 	else
 		choice = c;
 	mushroom = 1;
+	x_pos=0.0;
+	y_pos=0.0;
+	z_pos=0.0;
+	angle=M_PI/2;
+	acc=5.;
 }
 
 void Kart :: DrawKart(){
 	FILE * object;
-	vector< glm::vec3 > vertices;
-	vector< glm::vec2 > uvs;
-	vector< glm::vec3 > normals; // Won't be used at the moment.
+	//vector< glm::vec3 > vertices;
+	//vector< glm::vec2 > uvs;
+	//vector< glm::vec3 > normals; // Won't be used at the moment.
 	switch (choice){
 		case 1:
-			bool res = objloader("Kart1.obj", vertices, uvs, normals);
-			if (res == false){
-				cout << "Could not draw obj" << endl;
-			}
-			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+			glutSolidTeapot(1.);
+			//bool res = objloader("Kart1.obj", vertices, uvs, normals);
+			//if (res == false){
+			//	cout << "Could not draw obj" << endl;
+			//}
+			//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 			break;
 		case 2:
-			bool res = objloader("Kart2.obj", vertices, uvs, normals);
+			/*//bool res = objloader("Kart2.obj", vertices, uvs, normals);
                         if (res == false){
                                 cout << "Could not draw obj" << endl;
                         }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
 		case 3:
-			bool res = objloader("Kart3.obj", vertices, uvs, normals);
+			/*//bool res = objloader("Kart3.obj", vertices, uvs, normals);
                         if (res == false){
                                 cout << "Could not draw obj" << endl;
                         }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
 		case 4:
-			bool res = objloader("Kart4.obj", vertices, uvs, normals);
+			/*bool res = objloader("Kart4.obj", vertices, uvs, normals);
                         if (res == false){
                                 cout << "Could not draw obj" << endl;
                         }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
-		}
+	}
+		
 }
 
-bool objloader(const char* path, vector < glm::vec3 > & out_vertices, vector < glm::vec2 > & out_uvs, vector < glm::vec3 > & out_normals){
+/*bool objloader(const char* path, vector < glm::vec3 > & out_vertices, vector < glm::vec2 > & out_uvs, vector < glm::vec3 > & out_normals){
 	vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 	vector< glm::vec3 > temp_vertices;
 	vector< glm::vec2 > temp_uvs;
@@ -105,7 +118,46 @@ bool objloader(const char* path, vector < glm::vec3 > & out_vertices, vector < g
 		}
 	}
 	
-}
+}*/
 
 			
 
+float Kart :: getX(){
+	return x_pos;
+}
+
+float Kart :: getY(){
+	return y_pos;
+}
+
+float Kart :: getZ(){
+	return z_pos;
+}
+
+void Kart :: setX(float x){
+	x_pos=x;
+}
+
+void Kart :: setY(float y){
+	y_pos=y;
+}
+
+void Kart :: setZ(float z){
+	z_pos=z;
+}
+
+float Kart :: getAngle(){
+	return angle;
+}
+
+void Kart :: setAcc(float a){
+	acc=a;
+}
+
+float Kart :: getAcc() {
+	return acc;
+}
+
+void Kart :: setAngle(float ang){
+	angle=ang*M_PI/180;
+}
