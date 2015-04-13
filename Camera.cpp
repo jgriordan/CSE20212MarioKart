@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Camera.h"
 
 Camera::Camera(){
@@ -8,7 +9,7 @@ Camera::Camera(){
 	centerY = 0;
 	centerZ = 0;
 	angle = 0;
-	radius = 5;
+	radius = 10;
 }
 
 Camera::Camera( float eX, float eY, float eZ, float cX, float cY, float cZ ){
@@ -33,16 +34,21 @@ void Camera::updateLookAt(){
 	gluLookAt( eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0 );
 }
 
-void Camera::KartLocation( float x, float y, float z ){
+void Camera::KartLocation( float x, float y, float z, float a ){
 	centerX = x;
 	centerY = y;
 	centerZ = z;
 	eyeY = y+5;
-	eyeZ = z-10;
-	eyeX = x;
+	eyeZ = z-radius*sin(a);
+	eyeX = x+radius*cos(a);
 }
 
-void Camera::setAngle( float n ){
+/*void Camera::setAngle( float n ){
+	std::cout << "Set Angle function" << std::endl;
+	std::cout << "eyeX: " << eyeX << std::endl;
+	std::cout << "eyeY: " << eyeY << std::endl;
+	std::cout << "eyeZ: " << eyeZ << std::endl;
+	std::cout << "angle: " << angle << std::endl;
 	angle = n;
 	while( angle >= 360 )
 		angle -= 360;
@@ -50,6 +56,10 @@ void Camera::setAngle( float n ){
 		angle += 360;
 	eyeX = radius * cos( angle / 180 * M_PI );
 	eyeZ = radius * sin( angle / 180 * M_PI );
+	std::cout << "eyeX: " << eyeX << std::endl;
+	std::cout << "eyeY: " << eyeY << std::endl;
+	std::cout << "eyeZ: " << eyeZ << std::endl;
+	std::cout << "angle: " << angle << std::endl;
 }
 
 void Camera::rotateCCW( float degrees ){
@@ -63,4 +73,4 @@ void Camera::rotateCW( float degrees){
 void Camera::moveForward( float units ){
 	centerZ += units;
 	eyeZ += units;
-}
+}*/
