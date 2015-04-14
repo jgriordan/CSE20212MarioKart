@@ -9,27 +9,27 @@ void Track::draw(){
 	float col;
 	glPushMatrix();
 	glTranslatef(-2.5,-1,0);
-	for( z=0; z<660; z++ ){
+	for( z=0; z<2640; z++ ){
 
 		// determine colors for rainbow
-		col = ((float)(z%10))/10;
-		if( z%60 < 10 ){
+		col = ((float)(z%20))/10;
+		if( z%120 < 20 ){
 			glColor3f(1,col,0);
-		}else if( z%60 < 20 ){
+		}else if( z%120 < 40 ){
 			glColor3f(1-col,1,0);
-		}else if( z%60 < 30 ){
+		}else if( z%120 < 60 ){
 			glColor3f(0,1,col);
-		}else if( z%60 < 40 ){
+		}else if( z%120 < 80 ){
 			glColor3f(0,1-col,1);
-		}else if( z%60 < 50 ){
+		}else if( z%120 < 100 ){
 			glColor3f(col,0,1);
 		}else{
 			glColor3f(1,0,1-col);
 		}
 
-		// initial straight section (120)
-		if( z<120 ){
-			for( x=0; x<10; x++ ){
+		// initial straight section (480)
+		if( z<480 ){
+			for( x=0; x<40; x++ ){
 				// make checkered start/finish line
 				if( z == 0 ||  z == 2  ){
 					if( x % 2 )
@@ -45,13 +45,13 @@ void Track::draw(){
 				glutSolidCube(0.5);
 				glTranslatef(0.5,0,0);
 			}
-			glTranslatef(-5,0,0.5);
+			glTranslatef(-20,0,0.5);
 		}
 
 		// first turn (left,10)
-		else if( z<130 ){
+		else if( z<520 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<130-z; x++ ){
+			for( x=0; x<520-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0.5,0,0);
 			}
@@ -59,20 +59,20 @@ void Track::draw(){
 		}
 
 		// straight section (70)
-		else if( z<200 ){
-			if( z == 130 )
+		else if( z<800 ){
+			if( z == 520 )
 				glTranslatef(0,0,-0.5);
-			for( x=0; x<10; x++ ){
+			for( x=0; x<40; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,-0.5);
 			}
-			glTranslatef(0.5,0,5);
+			glTranslatef(0.5,0,20);
 		}
 
 		// second turn (left,10)
-		else if( z<210 ){
+		else if( z<840 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<210-z; x++ ){
+			for( x=0; x<840-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,-0.5);
 			}
@@ -80,20 +80,20 @@ void Track::draw(){
 		}
 
 		// straight section (240)
-		else if( z<450 ){
-			if( z == 210 )
+		else if( z<1800 ){
+			if( z == 840 )
 				glTranslatef(-0.5,0,0);
-			for( x=0; x<10; x++ ){
+			for( x=0; x<40; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(-0.5,0,0);
 			}
-			glTranslatef(5,0,-0.5);
+			glTranslatef(20,0,-0.5);
 		}
 
 		// third turn (left,10)
-		else if( z<460 ){
+		else if( z<1840 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<460-z; x++ ){
+			for( x=0; x<1840-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(-0.5,0,0);
 			}
@@ -101,20 +101,20 @@ void Track::draw(){
 		}
 
 		// straight section (70)
-		else if( z<530 ){
-			if( z == 460 )
+		else if( z<2120 ){
+			if( z == 1840 )
 				glTranslatef(0,0,0.5);
-			for( x=0; x<10; x++ ){
+			for( x=0; x<40; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,0.5);
 			}
-			glTranslatef(-0.5,0,-5);
+			glTranslatef(-0.5,0,-20);
 		}
 
 		// fourth turn (left,10)
-		else if( z<540 ){
+		else if( z<2160 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<540-z; x++ ){
+			for( x=0; x<2160-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,0.5);
 			}
@@ -123,13 +123,13 @@ void Track::draw(){
 
 		// final straight section (120)
 		else{
-			if( z == 540 )
+			if( z == 2160 )
 				glTranslatef(0.5,0,0);
-			for( x=0; x<10; x++ ){
+			for( x=0; x<40; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0.5,0,0);
 			}
-			glTranslatef(-5,0,0.5);
+			glTranslatef(-20,0,0.5);
 		}
 	}
 	glPopMatrix();
