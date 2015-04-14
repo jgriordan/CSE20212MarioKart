@@ -58,8 +58,8 @@ void Track::draw(){
 			glTranslatef(-0.5*(float)x+0.5,0,0.5);
 		}
 
-		// straight section (80)
-		else if( z<210 ){
+		// straight section (70)
+		else if( z<200 ){
 			if( z == 130 )
 				glTranslatef(0,0,-0.5);
 			for( x=0; x<10; x++ ){
@@ -70,9 +70,9 @@ void Track::draw(){
 		}
 
 		// second turn (left,10)
-		else if( z<220 ){
+		else if( z<210 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<220-z; x++ ){
+			for( x=0; x<210-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,-0.5);
 			}
@@ -80,8 +80,8 @@ void Track::draw(){
 		}
 
 		// straight section (240)
-		else if( z<460 ){
-			if( z == 220 )
+		else if( z<450 ){
+			if( z == 210 )
 				glTranslatef(-0.5,0,0);
 			for( x=0; x<10; x++ ){
 				glutSolidCube(0.5);
@@ -91,18 +91,18 @@ void Track::draw(){
 		}
 
 		// third turn (left,10)
-		else if( z<470 ){
+		else if( z<460 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<470-z; x++ ){
+			for( x=0; x<460-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(-0.5,0,0);
 			}
-			glTranslatef(0.5*(float)x-0.5,0,0.5);
+			glTranslatef(0.5*(float)x-0.5,0,-0.5);
 		}
 
-		// straight section (80)
-		else if( z<550 ){
-			if( z == 470 )
+		// straight section (70)
+		else if( z<530 ){
+			if( z == 460 )
 				glTranslatef(0,0,0.5);
 			for( x=0; x<10; x++ ){
 				glutSolidCube(0.5);
@@ -112,18 +112,18 @@ void Track::draw(){
 		}
 
 		// fourth turn (left,10)
-		else if( z<560 ){
+		else if( z<540 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<560-z; x++ ){
+			for( x=0; x<540-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0,0,0.5);
 			}
 			glTranslatef(-0.5,0,-0.5*(float)x+0.5);
 		}
 
-		// final straight section (100)
+		// final straight section (120)
 		else{
-			if( z == 560 )
+			if( z == 540 )
 				glTranslatef(0.5,0,0);
 			for( x=0; x<10; x++ ){
 				glutSolidCube(0.5);
