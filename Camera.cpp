@@ -9,7 +9,7 @@ Camera::Camera(){
 	centerY = 0;
 	centerZ = 0;
 	angle = 0;
-	radius = 10;
+	radius = 20;
 }
 
 Camera::Camera( float eX, float eY, float eZ, float cX, float cY, float cZ ){
@@ -38,7 +38,7 @@ void Camera::KartLocation( float x, float y, float z, float a ){
 	centerX = x;
 	centerY = y;
 	centerZ = z;
-	eyeY = y+5;
+	eyeY = y+10;
 	eyeZ = z-radius*sin(a);
 	eyeX = x+radius*cos(a);
 }
