@@ -8,11 +8,11 @@ void Track::draw(){
 	int x, z;
 	float col;
 	glPushMatrix();
-	glTranslatef(-2.5,-1,0);
+	glTranslatef(-5,-1,0);
 	for( z=0; z<2640; z++ ){
 
 		// determine colors for rainbow
-		col = ((float)(z%20))/10;
+		col = ((float)(z%20))/20;
 		if( z%120 < 20 ){
 			glColor3f(1,col,0);
 		}else if( z%120 < 40 ){
