@@ -60,14 +60,6 @@ void processSpecialKeys(int key, int x, int y){
 	}
 }
 
-/*void mouse_button(int button, int state, int x, int y){
-	
-}
-void mouse_motion(int x, int y){
-	
-	glutPostRedisplay();
-}*/
-
 void OnReshape( int w, int h ){
 	if( h == 0 )
 		h = 1;
@@ -88,13 +80,13 @@ void OnDraw(){
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	myC.KartLocation(uKart.getX(),uKart.getY(),uKart.getZ(),uKart.getAngle());
-	myC.updateLookAt();
+	myC.KartLocation(uKart.getX(),uKart.getY(),uKart.getZ(),uKart.getAngle());// set camera to behind kart
+	myC.updateLookAt();// update camera drawing
 	glColor3d( red, green, blue );
 	glPushMatrix();
-	glTranslatef(uKart.getX(),uKart.getY(),uKart.getZ());
-	glRotatef(-90,0,1,0);
-	glRotatef(angle-90,0,1,0);
+	glTranslatef(uKart.getX(),uKart.getY(),uKart.getZ());// move to kart location
+	glRotatef(-90,0,1,0);// rotate so the kart faces forward initially
+	glRotatef(angle-90,0,1,0);// rotate the kart to the apropriate angle
 	uKart.DrawKart();
 	glPopMatrix();
 	myTrack.draw();
@@ -109,16 +101,15 @@ int main( int argc, char** argv ){
 	uKart.setAngle(angle);
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE );
-	glutInitWindowSize( 640, 480 );
-	glutCreateWindow( "This will become A teapot kart" );
-	glutDisplayFunc( OnDraw );
+	glutInitWindowSize( 960, 720 );
+	glutCreateWindow( "Mario Kart" );
+	glutDisplayFunc( OnDraw );// the important drawing function
 	glutReshapeFunc( OnReshape );
 	glEnable( GL_DEPTH_TEST );
 	atexit( OnExit );
 	glutIdleFunc( idle );
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
-	//glutMouseFunc(mouse_button);
 	//glutMotionFunc(mouse_motion);
 	glutMainLoop();
 	return 0;
