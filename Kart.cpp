@@ -11,8 +11,8 @@ Kart :: Kart(){
 	x_pos=0.0;
 	y_pos=0.0;
 	z_pos=0.0;
-	angle=M_PI/2;
-	acc=.1;
+	angle=M_PI/4;
+	acc=.2;
 }
 
 Kart :: Kart(int c){
@@ -26,8 +26,8 @@ Kart :: Kart(int c){
 	x_pos=0.0;
 	y_pos=0.0;
 	z_pos=0.0;
-	angle=M_PI/2;
-	acc=.1;
+	angle=M_PI/4;
+	acc=.2;
 }
 
 void Kart :: DrawKart(){

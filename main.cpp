@@ -26,7 +26,6 @@ int myrandom( int m ){
 
 
 void idle(){
-	//glClearColor((double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255, (double)myrandom(255)/255);
 	glutPostRedisplay();
 }
 
@@ -38,22 +37,18 @@ void processNormalKeys(unsigned char key, int x, int y) {
 void processSpecialKeys(int key, int x, int y){
 	switch(key){
 	case GLUT_KEY_RIGHT:
-		angle -= 45;
+		angle -= 5;
 		uKart.setAngle(angle);
-//		myC.rotateCW( angle );
 		break;
 	case GLUT_KEY_LEFT:
-		angle += 45;
+		angle += 5;
 		uKart.setAngle(angle);
-//		myC.rotateCCW( angle );
 		break;
 	case GLUT_KEY_UP:
-//		myC.moveForward(uKart.getAcc()*sin(uKart.getAngle())+uKart.getAcc()*cos(uKart.getAngle()));
 		uKart.setZ(uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()));
 		uKart.setX(uKart.getX()-uKart.getAcc()*cos(uKart.getAngle()));	
 		break;
 	case GLUT_KEY_DOWN:
-//		myC.moveForward((uKart.getAcc()*sin(uKart.getAngle())+uKart.getAcc()*cos(uKart.getAngle())));
                 uKart.setZ(uKart.getZ()-uKart.getAcc()*sin(uKart.getAngle()));
 		uKart.setX(uKart.getX()+uKart.getAcc()*cos(uKart.getAngle()));
 		break;
