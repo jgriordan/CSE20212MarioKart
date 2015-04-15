@@ -8,7 +8,7 @@ void Track::draw(){
 	int x, z;
 	float col;
 	glPushMatrix();
-	glTranslatef(-10,-1,0);
+	glTranslatef(-9.75,-1,0);
 	for( z=0; z<2640; z++ ){
 
 		// determine colors for rainbow
@@ -27,7 +27,7 @@ void Track::draw(){
 			glColor3f(1,0,1-col);
 		}
 
-		// initial straight section (240 +z -10<x<10)
+		// initial straight section (0<z<240 -10<x<10)
 		if( z<480 ){
 			for( x=0; x<40; x++ ){
 				// make checkered start/finish line
@@ -136,7 +136,9 @@ void Track::draw(){
 }
 
 int Track::isOnTrack(float x, float z){
-	if( -10 < x && 10 > x && z >= 0 && z <=240 )
+	if( x > -10 && x < 10 && z >= 0 && z <= 240 )
+		return 1;
+	else if( z >= 240 && z <= 260 && x <= 10 && x > z-250 )
 		return 1;
 	else
 		return 0;

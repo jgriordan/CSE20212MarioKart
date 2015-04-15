@@ -17,7 +17,7 @@ Kart :: Kart( int c, Track& track ) : myTrack(track){
 	y_pos=0.0;
 	z_pos=0.0;
 	angle=M_PI/4;
-	acc=.2;
+	acc=.5;
 }
 
 void Kart :: DrawKart(){
