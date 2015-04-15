@@ -9,6 +9,7 @@ class Track{
 public:
 	Track();
 	void draw();
+	int isOnTrack(float,float);
 };
 
 #endif

@@ -11,7 +11,7 @@
 
 Camera myC;
 Track myTrack;
-Kart uKart(1);
+Kart uKart( 1, myTrack );
 float red = 0;
 float green = 1;
 float blue = 1;
@@ -45,12 +45,10 @@ void processSpecialKeys(int key, int x, int y){
 		uKart.setAngle(angle);
 		break;
 	case GLUT_KEY_UP:
-		uKart.setZ(uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()));
-		uKart.setX(uKart.getX()-uKart.getAcc()*cos(uKart.getAngle()));	
+		uKart.setLocation( uKart.getX()-uKart.getAcc()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()) );
 		break;
 	case GLUT_KEY_DOWN:
-                uKart.setZ(uKart.getZ()-uKart.getAcc()*sin(uKart.getAngle()));
-		uKart.setX(uKart.getX()+uKart.getAcc()*cos(uKart.getAngle()));
+		uKart.setLocation( uKart.getX()+uKart.getAcc()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()-uKart.getAcc()*sin(uKart.getAngle()) );
 		break;
 	}
 }

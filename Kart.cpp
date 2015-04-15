@@ -5,17 +5,7 @@
 
 using namespace std;
 
-Kart :: Kart(){
-	choice = 1;
-	mushroom = 1;
-	x_pos=0.0;
-	y_pos=0.0;
-	z_pos=0.0;
-	angle=M_PI/4;
-	acc=.2;
-}
-
-Kart :: Kart(int c){
+Kart :: Kart( int c, Track& track ) : myTrack(track){
 	if (c > 4 || c < 1){
 		cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
@@ -134,16 +124,12 @@ float Kart :: getZ(){
 	return z_pos;
 }
 
-void Kart :: setX(float x){
-	x_pos=x;
-}
-
-void Kart :: setY(float y){
-	y_pos=y;
-}
-
-void Kart :: setZ(float z){
-	z_pos=z;
+void Kart :: setLocation( float x, float y, float z ){
+	if( myTrack.isOnTrack( x, z ) ){
+		x_pos = x;
+		y_pos = y;
+		z_pos = z;
+	}
 }
 
 float Kart :: getAngle(){

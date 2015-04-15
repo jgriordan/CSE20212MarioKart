@@ -1,6 +1,8 @@
 #ifndef KART_H
 #define KART_H
+
 #include "Camera.h"
+#include "Track.h"
 #include <vector>
 #include <GL/glut.h>
 
@@ -10,15 +12,12 @@ using namespace std;
 class Kart{
 
 public:
-	Kart();
-	Kart(int);
+	Kart(int,Track&);
 	void DrawKart();
 	float getX();
 	float getY();
 	float getZ();
-	void setX(float);
-	void setY(float);
-	void setZ(float);
+	void setLocation(float,float,float);
 	float getAngle();
 	void setAngle(float);
 	void setAcc(float);
@@ -31,7 +30,7 @@ private:
 	float z_pos;
 	float angle;
 	float acc;
-
+	Track& myTrack;
 	//bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
 };
 
