@@ -45,14 +45,14 @@ void processSpecialKeys(int key, int x, int y){
 		uKart.setAngle(angle);
 		break;
 	case GLUT_KEY_UP:
-		if (uKart.getAcc()<.5)
-			uKart.setAcc(uKart.getAcc()+.1);
-		uKart.setLocation( uKart.getX()-uKart.getAcc()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()) );
+		if (uKart.getSpeed()<.5)
+			uKart.setSpeed(uKart.getSpeed()+.1);
+		uKart.setLocation( uKart.getX()-uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
 		break;
 	case GLUT_KEY_DOWN:
-		if (uKart.getAcc()>-.5)
-			uKart.setAcc(uKart.getAcc()-.1);
-		uKart.setLocation( uKart.getX()+uKart.getAcc()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()) );
+		if (uKart.getSpeed()>-.5)
+			uKart.setSpeed(uKart.getSpeed()-.1);
+		uKart.setLocation( uKart.getX()+uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
 		break;
 	}
 
@@ -78,11 +78,11 @@ void OnDraw(){
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	if (uKart.getAcc()>0)
-		uKart.setAcc(uKart.getAcc()-.025);
-	else if (uKart.getAcc()<0)
-                uKart.setAcc(uKart.getAcc()+.025);
-	uKart.setLocation( uKart.getX()-uKart.getAcc()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getAcc()*sin(uKart.getAngle()) );
+	if (uKart.getSpeed()>0)
+		uKart.setSpeed(uKart.getSpeed()-.025);
+	else if (uKart.getSpeed()<0)
+                uKart.setSpeed(uKart.getSpeed()+.025);
+	uKart.setLocation( uKart.getX()-uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
 	myC.KartLocation(uKart.getX(),uKart.getY(),uKart.getZ(),uKart.getAngle());// set camera to behind kart
 	myC.updateLookAt();// update camera drawing
 	glColor3d( red, green, blue );

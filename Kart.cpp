@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Kart :: Kart( int c, Track& track ) : myTrack(track){
+Kart::Kart( int c, Track& track ):myTrack(track){
 	if (c > 4 || c < 1){
 		cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
@@ -17,10 +17,10 @@ Kart :: Kart( int c, Track& track ) : myTrack(track){
 	y_pos=0.0;
 	z_pos=0.0;
 	angle=M_PI/4;
-	acc=0;
+	speed=0;
 }
 
-void Kart :: DrawKart(){
+void Kart::DrawKart(){
 	FILE * object;
 	//vector< glm::vec3 > vertices;
 	//vector< glm::vec2 > uvs;
@@ -112,19 +112,19 @@ void Kart :: DrawKart(){
 
 			
 
-float Kart :: getX(){
+float Kart::getX(){
 	return x_pos;
 }
 
-float Kart :: getY(){
+float Kart::getY(){
 	return y_pos;
 }
 
-float Kart :: getZ(){
+float Kart::getZ(){
 	return z_pos;
 }
 
-void Kart :: setLocation( float x, float y, float z ){
+void Kart::setLocation( float x, float y, float z ){
 	if( myTrack.isOnTrack( x, z ) ){
 		x_pos = x;
 		y_pos = y;
@@ -132,18 +132,18 @@ void Kart :: setLocation( float x, float y, float z ){
 	}
 }
 
-float Kart :: getAngle(){
+float Kart::getAngle(){
 	return angle;
 }
 
-void Kart :: setAcc(float a){
-	acc=a;
+void Kart::setSpeed(float n){
+	speed=n;
 }
 
-float Kart :: getAcc() {
-	return acc;
+float Kart::getSpeed() {
+	return speed;
 }
 
-void Kart :: setAngle(float ang){
+void Kart::setAngle(float ang){
 	angle=ang*M_PI/180;
 }

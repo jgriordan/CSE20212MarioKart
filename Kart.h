@@ -20,8 +20,8 @@ public:
 	void setLocation(float,float,float);
 	float getAngle();
 	void setAngle(float);
-	void setAcc(float);
-	float getAcc();
+	void setSpeed(float);
+	float getSpeed();
 private:
 	int mushroom;
 	int choice;
@@ -29,7 +29,7 @@ private:
 	float y_pos;
 	float z_pos;
 	float angle;
-	float acc;
+	float speed;
 	Track& myTrack;
 	//bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
 };
