@@ -81,7 +81,7 @@ void Track::draw(){
 			}
 			glTranslatef(20,0,-0.5);
 		}
-		// third turn (left,10)
+		// third turn (-260<z<-240, 150<x<410+z)
 		else if( z<1840 ){
 			glColor3f(0,0.5,0.5);
 			for( x=0; x<1840-z; x++ ){
@@ -90,7 +90,7 @@ void Track::draw(){
 			}
 			glTranslatef(0.5*(float)x-0.5,0,-0.5);
 		}
-		// straight section (70)
+		// straight section (-260<z<-240, 10<x<150)
 		else if( z<2120 ){
 			if( z == 1840 )
 				glTranslatef(0,0,0.5);
@@ -100,7 +100,7 @@ void Track::draw(){
 			}
 			glTranslatef(-0.5,0,-20);
 		}
-		// fourth turn (left,10)
+		// fourth turn (-10<x<10, -250-x<z<-240-x)
 		else if( z<2160 ){
 			glColor3f(0,0.5,0.5);
 			for( x=0; x<2160-z; x++ ){
@@ -109,7 +109,7 @@ void Track::draw(){
 			}
 			glTranslatef(-0.5,0,-0.5*(float)x+0.5);
 		}
-		// final straight section (120)
+		// final straight section (-10<x<10, -240<z<240)
 		else{
 			if( z == 2160 )
 				glTranslatef(0.5,0,0);
@@ -123,15 +123,21 @@ void Track::draw(){
 	glPopMatrix();
 }
 int Track::isOnTrack(float x, float z){
-	if( x > -10 && x < 10 && z >= 0 && z <= 240 )
+	if( x > -10 && x < 10 && z >= -240 && z <= 240 )
 		return 1;
 	else if( z >= 240 && z < 260 && x <= 10 && x > z-250 )
 		return 1;
-	else if( z > 240 && z < 260 && x >=10 && x <=150 )
+	else if( z > 240 && z < 260 && x >=10 && x <= 150 )
 		return 1;
 	else if( x >= 150 && x < 170 && z >= 240 && z < 410-x )
 		return 1;
 	else if( x > 150 && x < 170 && z <= 240 && z >= -240 )
+		return 1;
+	else if( z <= -240 && z > -260 && x >=150 && x < z+410 )
+		return 1;
+	else if( z < -240 && z > -260 && x <= 150 && x >= 10 )
+		return 1;
+	else if( x <= 10 && x > -10 && z <= -240 && z > -250-x )
 		return 1;
 	else
 		return 0;
