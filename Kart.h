@@ -5,6 +5,7 @@
 #include "Track.h"
 #include <vector>
 #include <GL/glut.h>
+#include "objloader.h"
 
 
 using namespace std;
@@ -31,8 +32,8 @@ private:
 	float z_pos;
 	float angle;
 	float speed;
+	object_type car;
 	Track& myTrack;
-	//bool objloader(const char*, vector < glm::vec3 >*, vector < glm::vec2 >*, vector < glm::vec3 >*);
 };
 
 #endif	
