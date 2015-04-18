@@ -122,7 +122,8 @@ void Track::draw(){
 	}
 	glPopMatrix();
 }
-int Track::isOnTrack(float x, float z){
+
+int Track::isOnTrack( float x, float z ){
 	if( x > -10 && x < 10 && z >= -240 && z <= 240 )
 		return 1;
 	else if( z >= 240 && z < 260 && x <= 10 && x > z-250 )
@@ -141,4 +142,46 @@ int Track::isOnTrack(float x, float z){
 		return 1;
 	else
 		return 0;
- }
+}
+
+float Track::toMiddleX(float x, float z){
+	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
+		return 0;
+	else if( z >= 240 && z < 260 && x < 10 && x > -10 )
+		return 5;
+	else if( ( ( z <= 240 && z > 235 ) || ( z >= 260 && z < 265 ) ) && x >= 10 && x <= 150 )
+		return x;
+	else if( x > 150 && x < 170 && z > 240 && z < 260 )
+		return 155;
+	else if( ( ( x <= 150 && x > 145 ) || ( x >= 170 && x < 175 ) ) && z <= 240 && z >= -240 )
+		return 160;
+	else if( z < -240 && z > -260 && x > 150 && x < 170 )
+		return 155;
+	else if( ( ( z >= -240 && z < -235 ) || ( z <= -260 && z > -265 ) ) && x <= 150 && x >= 10 )
+		return x;
+	else if( x < 10 && x > -10 && z < -240 && z > -260 )
+		return 5;
+	else
+		return 0;
+}
+
+float Track::toMiddleZ(float x, float z){
+	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
+		return z;
+	else if( z >= 240 && z < 260 && x < 10 && x > -10 )
+		return 245;
+	else if( ( ( z <= 240 && z > 235 ) || ( z >= 260 && z < 265 ) ) && x >= 10 && x <= 150 )
+		return 250;
+	else if( x > 150 && x < 170 && z > 240 && z < 260 )
+		return 245;
+	else if( ( ( x <= 150 && x > 145 ) || ( x >= 170 && x < 175 ) ) && z <= 240 && z >= -240 )
+		return z;
+	else if( z < -240 && z > -260 && x > 150 && x < 170 )
+		return -245;
+	else if( ( ( z >= -240 && z < -235 ) || ( z <= -260 && z > -265 ) ) && x <= 150 && x >= 10 )
+		return -250;
+	else if( x < 10 && x > -10 && z < -240 && z > -260 )
+		return -245;
+	else
+		return 0;
+}

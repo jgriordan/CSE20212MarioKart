@@ -12,7 +12,7 @@ Kart::Kart( int c, Track& track ):myTrack(track){
 	}
 	else
 		choice = c;
-	mushroom = 1;
+	mushroom = 3;
 	x_pos=0.0;
 	y_pos=0.0;
 	z_pos=0.0;
@@ -130,6 +130,11 @@ void Kart::setLocation( float x, float y, float z ){
 		y_pos = y;
 		z_pos = z;
 	}
+	else{
+		speed = 0;
+		x_pos = myTrack.toMiddleX( x, z );
+		z_pos = myTrack.toMiddleZ( x, z );
+	}
 }
 
 float Kart::getAngle(){
@@ -146,4 +151,11 @@ float Kart::getSpeed() {
 
 void Kart::setAngle(float ang){
 	angle=ang*M_PI/180;
+}
+
+void Kart::useShroom(){
+	if( mushroom ){
+		speed += 2;
+		mushroom --;
+	}
 }

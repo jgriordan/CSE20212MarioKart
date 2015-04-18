@@ -22,6 +22,7 @@ public:
 	void setAngle(float);
 	void setSpeed(float);
 	float getSpeed();
+	void useShroom();
 private:
 	int mushroom;
 	int choice;

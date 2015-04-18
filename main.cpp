@@ -5,10 +5,6 @@
 #include "Track.h"
 #include "Kart.h"
 
-//static GLdouble eyeX=5;
-//static GLdouble eyeY=10;
-//static GLdouble eyeZ=5;
-
 Camera myC;
 Track myTrack;
 Kart uKart( 1, myTrack );
@@ -17,8 +13,6 @@ float green = 1;
 float blue = 1;
 
 float angle=90.;
-//static float x = 0.0, y = 1.75, z = 5.0;
-//static float lx = 0.0, ly = 0.0, lz = -1.0;
 
 int myrandom( int m ){
 	return rand() % m;
@@ -30,29 +24,39 @@ void idle(){
 }
 
 void processNormalKeys(unsigned char key, int x, int y) {
-	if (key == 27)
-		exit(0);	
+	if( key == 27 ){
+		exit(0);
+	}
+	else if( key == 32 ){
+		uKart.useShroom();
+	}	
 }
 
-void processSpecialKeys(int key, int x, int y){
+void processSpecialKeys( int key, int x, int y ){
 	switch(key){
 	case GLUT_KEY_RIGHT:
-		angle -= 5;
+		angle -= 1;
 		uKart.setAngle(angle);
+		if( uKart.getSpeed() > 0 )
+			uKart.setSpeed( uKart.getSpeed() - 0.01 );
+		else if( uKart.getSpeed() < 0 )
+			uKart.setSpeed( uKart.getSpeed() + 0.01 ); 
 		break;
 	case GLUT_KEY_LEFT:
-		angle += 5;
+		angle += 1;
 		uKart.setAngle(angle);
+		if( uKart.getSpeed() > 0 )
+			uKart.setSpeed( uKart.getSpeed() - 0.01 );
+		else if( uKart.getSpeed() < 0 )
+			uKart.setSpeed( uKart.getSpeed() + 0.01 ); 
 		break;
 	case GLUT_KEY_UP:
-		if (uKart.getSpeed()<.5)
-			uKart.setSpeed(uKart.getSpeed()+.1);
-		uKart.setLocation( uKart.getX()-uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
+		if( uKart.getSpeed() < 4 )
+			uKart.setSpeed( uKart.getSpeed() + 0.04 - (uKart.getSpeed()/100) );
 		break;
 	case GLUT_KEY_DOWN:
-		if (uKart.getSpeed()>-.5)
-			uKart.setSpeed(uKart.getSpeed()-.1);
-		uKart.setLocation( uKart.getX()+uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
+		if( uKart.getSpeed() > -4 )
+			uKart.setSpeed( uKart.getSpeed() - 0.04 + (uKart.getSpeed()/100) );
 		break;
 	}
 
@@ -64,7 +68,7 @@ void OnReshape( int w, int h ){
 	glViewport( 0, 0, w, h );
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	gluPerspective( 45, (float)w / h, 0.1, 100);
+	gluPerspective( 45, (float) w / h, 0.1, 100 );
 	glMatrixMode( GL_MODELVIEW );
 }
 
@@ -78,18 +82,18 @@ void OnDraw(){
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	if (uKart.getSpeed()>0)
-		uKart.setSpeed(uKart.getSpeed()-.025);
-	else if (uKart.getSpeed()<0)
-                uKart.setSpeed(uKart.getSpeed()+.025);
-	uKart.setLocation( uKart.getX()-uKart.getSpeed()*cos(uKart.getAngle()), uKart.getY(), uKart.getZ()+uKart.getSpeed()*sin(uKart.getAngle()) );
-	myC.KartLocation(uKart.getX(),uKart.getY(),uKart.getZ(),uKart.getAngle());// set camera to behind kart
+	if( uKart.getSpeed() > 0 )
+		uKart.setSpeed( uKart.getSpeed() - 0.02 );
+	else if( uKart.getSpeed() < 0 )
+                uKart.setSpeed( uKart.getSpeed() + 0.02 );
+	uKart.setLocation( uKart.getX() - uKart.getSpeed() * cos( uKart.getAngle() ), uKart.getY(), uKart.getZ() + uKart.getSpeed() * sin( uKart.getAngle() ) );
+	myC.KartLocation( uKart.getX(), uKart.getY(), uKart.getZ(), uKart.getAngle() );// set camera to behind kart
 	myC.updateLookAt();// update camera drawing
 	glColor3d( red, green, blue );
 	glPushMatrix();
-	glTranslatef(uKart.getX(),uKart.getY(),uKart.getZ());// move to kart location
-	glRotatef(-90,0,1,0);// rotate so the kart faces forward initially
-	glRotatef(angle-90,0,1,0);// rotate the kart to the apropriate angle
+	glTranslatef( uKart.getX(), uKart.getY(), uKart.getZ() );// move to kart location
+	glRotatef( -90, 0, 1, 0 );// rotate so the kart faces forward initially
+	glRotatef( angle - 90, 0, 1, 0 );// rotate the kart to the apropriate angle
 	uKart.DrawKart();
 	glPopMatrix();
 	myTrack.draw();

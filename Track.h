@@ -10,6 +10,8 @@ public:
 	Track();
 	void draw();
 	int isOnTrack(float,float);
+	float toMiddleX(float,float);
+	float toMiddleZ(float,float);
 };
 
 #endif
