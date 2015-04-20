@@ -5,6 +5,7 @@
 #include "Track.h"
 #include <vector>
 #include <GL/glut.h>
+#include <ctime>
 #include "objloader.h"
 
 
@@ -24,6 +25,14 @@ public:
 	void setSpeed(float);
 	float getSpeed();
 	void useShroom();
+	void setInitialTime();
+	clock_t getInitialTime();
+	double time();
+	void lapFunc();
+	void setLap_t(int);
+	double getLap_t(int);
+	void setLap_n(int = 1);
+	int getLap_n();
 private:
 	int mushroom;
 	int choice;
@@ -34,6 +43,9 @@ private:
 	float speed;
 	object_type car;
 	Track& myTrack;
+	clock_t begin;
+	int lap_n;
+	double lap;
 };
 
 #endif	

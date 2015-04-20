@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include "objloader.h"
+#include <ctime>
 
 using namespace std;
 
@@ -114,4 +115,71 @@ void Kart::useShroom(){
 		speed += 2;
 		mushroom --;
 	}
+}
+
+void Kart::setInitialTime()
+{
+	begin = clock();
+}
+
+double Kart::time()
+{
+	clock_t now = clock();
+	double elapsed = double(now-begin)/CLOCKS_PER_SEC;
+	if (elapsed > .2)
+	{
+		cout << endl;
+		cout << elapsed << endl;
+		lap = elapsed;
+	}
+	else
+	{
+		lap_n++;
+		cout << lap << " " << lap_n << endl;
+	}
+	return elapsed;
+}
+
+clock_t Kart::getInitialTime()
+{
+	return begin;
+}
+
+void Kart::lapFunc()
+{
+	if (getX() < 10 && getX() > -10)
+	{
+		if ( getZ() >= 0 && getZ() <= 4)
+		{
+			begin = clock();
+//			if (time() < .1)
+//			{
+//				lap[lap_n-1] = time();
+//				begin[lap_n] = clock();
+//				lap_n++;
+//				cout << lap_n << endl;
+//				cout << lap[lap_n-2] << endl;
+//			}
+		}
+	}
+}
+
+void Kart::setLap_n(int l)
+{
+	lap_n = l;
+}
+
+int Kart::getLap_n()
+{
+	return lap_n;
+}
+
+void Kart::setLap_t(int l)
+{
+	lap = time();
+}
+
+double Kart::getLap_t(int l)
+{
+	return lap;
 }

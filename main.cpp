@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <cmath>
+#include <ctime>
 #include "Camera.h"
 #include "Track.h"
 #include "Kart.h"
@@ -89,6 +90,8 @@ void OnDraw(){
 	uKart.setLocation( uKart.getX() - uKart.getSpeed() * cos( uKart.getAngle() ), uKart.getY(), uKart.getZ() + uKart.getSpeed() * sin( uKart.getAngle() ) );
 	myC.KartLocation( uKart.getX(), uKart.getY(), uKart.getZ(), uKart.getAngle() );// set camera to behind kart
 	myC.updateLookAt();// update camera drawing
+	uKart.time();
+	uKart.lapFunc();
 	glColor3d( red, green, blue );
 	glPushMatrix();
 	glTranslatef( uKart.getX(), uKart.getY(), uKart.getZ() );// move to kart location
@@ -118,6 +121,8 @@ int main( int argc, char** argv ){
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
 	//glutMotionFunc(mouse_motion);
+	uKart.setLap_n(1);
+	uKart.setInitialTime();
 	glutMainLoop();
 	return 0;
 }
