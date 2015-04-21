@@ -37,7 +37,7 @@ public:
 	int id_texture; 
 	object_type(){}
 	~object_type(){}
-	int objloader(char *p_filename); 
+	int objloader(char * p_filename); 
 	int objdatadisplay();
 	void render();
 

@@ -121,7 +121,6 @@ int main( int argc, char** argv ){
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
 	//glutMotionFunc(mouse_motion);
-	uKart.setLap_n(1);
 	uKart.setInitialTime();
 	glutMainLoop();
 	return 0;

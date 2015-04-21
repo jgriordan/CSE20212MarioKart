@@ -97,7 +97,7 @@ return 1;
 }
 
 
-int object_type::objloader(char *p_filename)
+int object_type::objloader(char * p_filename)
 {
     int ivertex=0; //Index variable
     int inormal =0;

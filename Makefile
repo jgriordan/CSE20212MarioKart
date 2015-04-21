@@ -14,7 +14,7 @@ Camera.o: Camera.cpp
 Track.o: Track.cpp
 	$(CC) Track.cpp -c
 Kart.o: Kart.cpp
-	$(CC) Kart.cpp -c
+	$(CC) Kart.cpp -c -Wno-write-strings
 objloader.o:
 	$(CC) objloader.cpp -c
 clean:

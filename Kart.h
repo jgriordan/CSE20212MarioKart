@@ -46,6 +46,7 @@ private:
 	clock_t begin;
 	int lap_n;
 	double lap;
+	int hasStarted;
 };
 
 #endif	

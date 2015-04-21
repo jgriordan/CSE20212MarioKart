@@ -7,12 +7,11 @@
 #include <string>
 #include "objloader.h"
 #include <ctime>
-
-using namespace std;
+#include <string>
 
 Kart::Kart( int c, Track& track ):myTrack(track){
 	if (c > 4 || c < 1){
-		cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
+		std::cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
 	}
 	else
@@ -23,10 +22,13 @@ Kart::Kart( int c, Track& track ):myTrack(track){
 	z_pos=0.0;
 	angle=M_PI/4;
 	speed=0;
+	hasStarted = 0;
+	lap_n = 0;
 }
 
 void Kart::DrawKart(){
 	FILE * object;
+	char* loader = "kk_kart.obj";
 	//vector< glm::vec3 > vertices;
 	//vector< glm::vec2 > uvs;
 	//vector< glm::vec3 > normals; // Won't be used at the moment.
@@ -35,17 +37,17 @@ void Kart::DrawKart(){
 			glutSolidTeapot(1.);
 			//bool res = objloader("Kart1.obj", vertices, uvs, normals);
 			//if (res == false){
-			//	cout << "Could not draw obj" << endl;
+			//	std::cout << "Could not draw obj" << endl;
 			//}
 			//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 			break;
 		case 2:
-			car.objloader("kk_kart.obj");
+			car.objloader( loader );
 			car.render();
 			//car.objdatadisplay();
 			/*//bool res = objloader("Kart2.obj", vertices, uvs, normals);
                         if (res == false){
-                                cout << "Could not draw obj" << endl;
+                                std::cout << "Could not draw obj" << endl;
                         }
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
@@ -59,7 +61,7 @@ void Kart::DrawKart(){
 		case 4:
 			/*bool res = objloader("Kart4.obj", vertices, uvs, normals);
                         if (res == false){
-                                cout << "Could not draw obj" << endl;
+                                std::cout << "Could not draw obj" << endl;
                         }
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
@@ -126,16 +128,17 @@ double Kart::time()
 {
 	clock_t now = clock();
 	double elapsed = double(now-begin)/CLOCKS_PER_SEC;
-	if (elapsed > .2)
+	if (elapsed > 1)
 	{
-		cout << endl;
-		cout << elapsed << endl;
+		//std::cout << std::endl;
+		//std::cout << elapsed << std::endl;
+		hasStarted = 1;
 		lap = elapsed;
 	}
-	else
-	{
+	else if( hasStarted ){
 		lap_n++;
-		cout << lap << " " << lap_n << endl;
+		std::cout << "lap " << lap_n << ": " << lap << endl;
+		hasStarted = 0;
 	}
 	return elapsed;
 }
