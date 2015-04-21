@@ -23,8 +23,8 @@ void Track::draw(){
 		}else{
 			glColor3f(1,0,1-col);
  		}
-		 // initial straight section (0<z<240 -10<x<10)
-		if( z<480 ){
+		 // initial straight section (0<z<120 -10<x<10)
+		if( z<240 ){
 			for( x=0; x<40; x++ ){
 				// make checkered start/finish line
 				if( z == 0 || z == 2 ){
@@ -44,9 +44,9 @@ void Track::draw(){
 			glTranslatef(-20,0,0.5);
 		}
 		 // first turn (240<z<260, z-250<x<10)
-		else if( z<520 ){
+		else if( z<280 ){
 			glColor3f(0,0.5,0.5);
-			for( x=0; x<520-z; x++ ){
+			for( x=0; x<280-z; x++ ){
 				glutSolidCube(0.5);
 				glTranslatef(0.5,0,0);
  			}
@@ -124,9 +124,9 @@ void Track::draw(){
 }
 
 int Track::isOnTrack( float x, float z ){
-	if( x > -10 && x < 10 && z >= -240 && z <= 240 )
+	if( x > -10 && x < 10 && z >= -240 && z <= 120 )
 		return 1;
-	else if( z >= 240 && z < 260 && x <= 10 && x > z-250 )
+	else if( z >= 120 && z < 140 && x <= 10 && x > z-130 )
 		return 1;
 	else if( z > 240 && z < 260 && x >=10 && x <= 150 )
 		return 1;
