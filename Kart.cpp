@@ -155,14 +155,6 @@ void Kart::lapFunc()
 		if ( getZ() >= 0 && getZ() <= 4)
 		{
 			begin = clock();
-//			if (time() < .1)
-//			{
-//				lap[lap_n-1] = time();
-//				begin[lap_n] = clock();
-//				lap_n++;
-//				cout << lap_n << endl;
-//				cout << lap[lap_n-2] << endl;
-//			}
 		}
 	}
 }
