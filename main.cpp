@@ -122,6 +122,14 @@ void OnDraw(){
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 	}
+	s.str("");
+	text.clear();
+	glRasterPos2f(50,80);
+	s << "LAP: " << uKart.getLap_n()+1;
+	text = s.str();
+	for (int i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
