@@ -1,4 +1,5 @@
-#include <stdlib.h>
+#include <cstdlib>
+#include <sstream>
 #include <GL/glut.h>
 #include <cmath>
 #include <ctime>
@@ -115,7 +116,9 @@ void OnDraw(){
 	glLoadIdentity();
 	//glColor3f(1.0f,1.0f,1.0f);
 	glRasterPos2f(50,50);
-	string text("time: ");
+	std::stringstream s;
+	s << "TIME: " << uKart.getLap_t();
+	string text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 	}
