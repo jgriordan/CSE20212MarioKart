@@ -174,7 +174,7 @@ void Kart::setLap_t(int l)
 	lap = time();
 }
 
-double Kart::getLap_t(int l)
+double Kart::getLap_t()
 {
 	return lap;
 }
