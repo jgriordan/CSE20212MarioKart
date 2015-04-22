@@ -30,7 +30,7 @@ public:
 	double time();
 	void lapFunc();
 	void setLap_t(int);
-	double getLap_t(int);
+	double getLap_t();
 	void setLap_n(int = 1);
 	int getLap_n();
 private:

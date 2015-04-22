@@ -1,7 +1,9 @@
-#include <stdlib.h>
+#include <cstdlib>
+#include <sstream>
 #include <GL/glut.h>
 #include <cmath>
 #include <ctime>
+#include <string>
 #include "Camera.h"
 #include "Track.h"
 #include "Kart.h"
@@ -14,6 +16,9 @@ float green = 1;
 float blue = 1;
 
 float angle=90.;
+
+int width = 960, height = 720;
+
 
 int myrandom( int m ){
 	return rand() % m;
@@ -100,6 +105,36 @@ void OnDraw(){
 	uKart.DrawKart();
 	glPopMatrix();
 	myTrack.draw();
+
+	// display time to the window
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0,width,height,0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	//glColor3f(1.0f,1.0f,1.0f);
+	glRasterPos2f(50,50);
+	std::stringstream s;
+	s << "TIME: " << uKart.getLap_t();
+	string text = s.str();
+	for (int i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
+	s.str("");
+	text.clear();
+	glRasterPos2f(50,80);
+	s << "LAP: " << uKart.getLap_n()+1;
+	text = s.str();
+	for (int i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+
 	glutSwapBuffers();
 }
 
@@ -111,7 +146,7 @@ int main( int argc, char** argv ){
 	uKart.setAngle(angle);
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE );
-	glutInitWindowSize( 960, 720 );
+	glutInitWindowSize( width, height );
 	glutCreateWindow( "Mario Kart" );
 	glutDisplayFunc( OnDraw );// the important drawing function
 	glutReshapeFunc( OnReshape );
