@@ -43,7 +43,7 @@ void Track::draw(){
 			 }
 			glTranslatef(-20,0,0.5);
 		}
-		 // first turn (240<z<260, z-250<x<10)
+		 // first turn (120<z<140, z-130<x<10)
 		else if( z<280 ){
 			glColor3f(0,0.5,0.5);
 			for( x=0; x<280-z; x++ ){
@@ -52,8 +52,8 @@ void Track::draw(){
  			}
 			glTranslatef(-0.5*(float)x+0.5,0,0.5);
  		}
- 		// straight section (240<z<260, 10<x<150)
-		else if( z<800 ){
+ 		// straight section (120<z<140, 10<x<90)
+		else if( z<440 ){
 			if( z == 520 )
 				glTranslatef(0,0,-0.5);
 			for( x=0; x<40; x++ ){
@@ -109,7 +109,7 @@ void Track::draw(){
 			}
 			glTranslatef(-0.5,0,-0.5*(float)x+0.5);
 		}
-		// final straight section (-10<x<10, -240<z<240)
+		// final straight section (-10<x<10, -240<z<0)
 		else{
 			if( z == 2160 )
 				glTranslatef(0.5,0,0);
@@ -128,7 +128,7 @@ int Track::isOnTrack( float x, float z ){
 		return 1;
 	else if( z >= 120 && z < 140 && x <= 10 && x > z-130 )
 		return 1;
-	else if( z > 240 && z < 260 && x >=10 && x <= 150 )
+	else if( z > 140 && z < 260 && x >=10 && x <= 150 )
 		return 1;
 	else if( x >= 150 && x < 170 && z >= 240 && z < 410-x )
 		return 1;
