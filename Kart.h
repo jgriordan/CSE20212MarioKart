@@ -33,6 +33,7 @@ public:
 	double getLap_t();
 	void setLap_n(int = 1);
 	int getLap_n();
+	void setChoice(int);
 private:
 	int mushroom;
 	int choice;
@@ -41,7 +42,8 @@ private:
 	float z_pos;
 	float angle;
 	float speed;
-	object_type car;
+	objloader car;
+	int cube;
 	Track& myTrack;
 	clock_t begin;
 	int lap_n;

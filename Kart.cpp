@@ -28,7 +28,6 @@ Kart::Kart( int c, Track& track ):myTrack(track){
 
 void Kart::DrawKart(){
 	FILE * object;
-	char* loader = "kk_kart.obj";
 	//vector< glm::vec3 > vertices;
 	//vector< glm::vec2 > uvs;
 	//vector< glm::vec3 > normals; // Won't be used at the moment.
@@ -42,8 +41,10 @@ void Kart::DrawKart(){
 			//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 			break;
 		case 2:
-			car.objloader( loader );
-			car.render();
+			cube=car.load("cow.obj");      //load it
+			glCallList(cube);       //and display it
+			//glutSwapBuffers(); //swap the buffers
+			//car.render();
 			//car.objdatadisplay();
 			/*//bool res = objloader("Kart2.obj", vertices, uvs, normals);
                         if (res == false){
@@ -52,6 +53,8 @@ void Kart::DrawKart(){
                         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
 		case 3:
+			//car.objloader( "cow.obj");
+			//car.render();
 			/*//bool res = objloader("Kart3.obj", vertices, uvs, normals);
                         if (res == false){
                                 cout << "Could not draw obj" << endl;
@@ -69,7 +72,9 @@ void Kart::DrawKart(){
 		
 } 
 
-			
+void Kart :: setChoice(int c){
+	choice=c;
+}			
 
 float Kart::getX(){
 	return x_pos;
