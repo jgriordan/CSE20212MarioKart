@@ -160,7 +160,7 @@ int main( int argc, char** argv ){
 	//glutMotionFunc(mouse_motion);
 	Track1 myTrack1;
 	Track2 myTrack2;
-	myTrack = &myTrack1;
+	myTrack = &myTrack2;
 	uKart = new Kart( 1, myTrack );
 	uKart->setAngle(angle);
 	uKart->setInitialTime();
