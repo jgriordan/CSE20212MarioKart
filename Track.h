@@ -7,11 +7,11 @@
 
 class Track{
 public:
-	Track();
-	void draw();
-	int isOnTrack(float,float);
-	float toMiddleX(float,float);
-	float toMiddleZ(float,float);
+	Track(){};
+	virtual void draw() = 0;
+	virtual int isOnTrack(float,float) = 0;
+	virtual float toMiddleX(float,float) = 0;
+	virtual float toMiddleZ(float,float) = 0;
 };
 
 #endif

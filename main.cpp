@@ -5,12 +5,13 @@
 #include <ctime>
 #include <string>
 #include "Camera.h"
-#include "Track.h"
+#include "Track1.h"
+#include "Track2.h"
 #include "Kart.h"
 
 Camera myC;
-Track myTrack;
-Kart uKart( 1, myTrack );
+Track * myTrack;
+Kart * uKart;
 float red = 0;
 float green = 1;
 float blue = 1;
@@ -30,11 +31,13 @@ void idle(){
 }
 
 void processNormalKeys(unsigned char key, int x, int y) {
+	// use escape key to exit
 	if( key == 27 ){
 		exit(0);
 	}
+	// use spacebar to activate mushroom
 	else if( key == 32 ){
-		uKart.useShroom();
+		uKart->useShroom();
 	}	
 }
 
@@ -42,27 +45,27 @@ void processSpecialKeys( int key, int x, int y ){
 	switch(key){
 	case GLUT_KEY_RIGHT:
 		angle -= 1;
-		uKart.setAngle(angle);
-		if( uKart.getSpeed() > 0 )
-			uKart.setSpeed( uKart.getSpeed() - 0.01 );
-		else if( uKart.getSpeed() < 0 )
-			uKart.setSpeed( uKart.getSpeed() + 0.01 ); 
+		uKart->setAngle(angle);
+		if( uKart->getSpeed() > 0 )
+			uKart->setSpeed( uKart->getSpeed() - 0.01 );
+		else if( uKart->getSpeed() < 0 )
+			uKart->setSpeed( uKart->getSpeed() + 0.01 ); 
 		break;
 	case GLUT_KEY_LEFT:
 		angle += 1;
-		uKart.setAngle(angle);
-		if( uKart.getSpeed() > 0 )
-			uKart.setSpeed( uKart.getSpeed() - 0.01 );
-		else if( uKart.getSpeed() < 0 )
-			uKart.setSpeed( uKart.getSpeed() + 0.01 ); 
+		uKart->setAngle(angle);
+		if( uKart->getSpeed() > 0 )
+			uKart->setSpeed( uKart->getSpeed() - 0.01 );
+		else if( uKart->getSpeed() < 0 )
+			uKart->setSpeed( uKart->getSpeed() + 0.01 ); 
 		break;
 	case GLUT_KEY_UP:
-		if( uKart.getSpeed() < 4 )
-			uKart.setSpeed( uKart.getSpeed() + 0.04 - (uKart.getSpeed()/100) );
+		if( uKart->getSpeed() < 4 )
+			uKart->setSpeed( uKart->getSpeed() + 0.04 - (uKart->getSpeed()/100) );
 		break;
 	case GLUT_KEY_DOWN:
-		if( uKart.getSpeed() > -4 )
-			uKart.setSpeed( uKart.getSpeed() - 0.04 + (uKart.getSpeed()/100) );
+		if( uKart->getSpeed() > -4 )
+			uKart->setSpeed( uKart->getSpeed() - 0.04 + (uKart->getSpeed()/100) );
 		break;
 	}
 
@@ -88,23 +91,23 @@ void OnDraw(){
 	float ambient[] = {1, 0, 0, 1}; 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLoadIdentity();
-	if( uKart.getSpeed() > 0 )
-		uKart.setSpeed( uKart.getSpeed() - 0.02 );
-	else if( uKart.getSpeed() < 0 )
-                uKart.setSpeed( uKart.getSpeed() + 0.02 );
-	uKart.setLocation( uKart.getX() - uKart.getSpeed() * cos( uKart.getAngle() ), uKart.getY(), uKart.getZ() + uKart.getSpeed() * sin( uKart.getAngle() ) );
-	myC.KartLocation( uKart.getX(), uKart.getY(), uKart.getZ(), uKart.getAngle() );// set camera to behind kart
+	if( uKart->getSpeed() > 0 )
+		uKart->setSpeed( uKart->getSpeed() - 0.02 );
+	else if( uKart->getSpeed() < 0 )
+                uKart->setSpeed( uKart->getSpeed() + 0.02 );
+	uKart->setLocation( uKart->getX() - uKart->getSpeed() * cos( uKart->getAngle() ), uKart->getY(), uKart->getZ() + uKart->getSpeed() * sin( uKart->getAngle() ) );
+	myC.KartLocation( uKart->getX(), uKart->getY(), uKart->getZ(), uKart->getAngle() );// set camera to behind kart
 	myC.updateLookAt();// update camera drawing
-	uKart.time();
-	uKart.lapFunc();
+	uKart->time();
+	uKart->lapFunc();
 	glColor3d( red, green, blue );
 	glPushMatrix();
-	glTranslatef( uKart.getX(), uKart.getY(), uKart.getZ() );// move to kart location
+	glTranslatef( uKart->getX(), uKart->getY(), uKart->getZ() );// move to kart location
 	glRotatef( -90, 0, 1, 0 );// rotate so the kart faces forward initially
 	glRotatef( angle - 90, 0, 1, 0 );// rotate the kart to the apropriate angle
-	uKart.DrawKart();
+	uKart->DrawKart();
 	glPopMatrix();
-	myTrack.draw();
+	myTrack->draw();
 
 	// display time to the window
 	glMatrixMode(GL_PROJECTION);
@@ -117,7 +120,7 @@ void OnDraw(){
 	//glColor3f(1.0f,1.0f,1.0f);
 	glRasterPos2f(50,50);
 	std::stringstream s;
-	s << "TIME: " << uKart.getLap_t();
+	s << "TIME: " << uKart->getLap_t();
 	string text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
@@ -125,7 +128,7 @@ void OnDraw(){
 	s.str("");
 	text.clear();
 	glRasterPos2f(50,80);
-	s << "LAP: " << uKart.getLap_n()+1;
+	s << "LAP: " << uKart->getLap_n()+1;
 	text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
@@ -143,7 +146,6 @@ void OnExit(){}
 
 // part that actually runs
 int main( int argc, char** argv ){
-	uKart.setAngle(angle);
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE );
 	glutInitWindowSize( width, height );
@@ -156,7 +158,12 @@ int main( int argc, char** argv ){
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
 	//glutMotionFunc(mouse_motion);
-	uKart.setInitialTime();
+	Track1 myTrack1;
+	Track2 myTrack2;
+	myTrack = &myTrack1;
+	uKart = new Kart( 1, myTrack );
+	uKart->setAngle(angle);
+	uKart->setInitialTime();
 	glutMainLoop();
 	return 0;
 }

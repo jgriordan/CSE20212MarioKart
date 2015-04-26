@@ -1,8 +1,9 @@
-#include "Track.h"
-Track::Track(){
+#include "Track2.h"
 
+Track2::Track2(){
 }
-void Track::draw(){
+
+void Track2::draw(){
 	int x, z;
 	float col;
 	glPushMatrix();
@@ -123,7 +124,7 @@ void Track::draw(){
 	glPopMatrix();
 }
 
-int Track::isOnTrack( float x, float z ){
+int Track2::isOnTrack( float x, float z ){
 	if( x > -10 && x < 10 && z >= -240 && z <= 120 )
 		return 1;
 	else if( z >= 120 && z < 140 && x <= 10 && x > z-130 )
@@ -144,7 +145,7 @@ int Track::isOnTrack( float x, float z ){
 		return 0;
 }
 
-float Track::toMiddleX(float x, float z){
+float Track2::toMiddleX(float x, float z){
 	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
 		return 0;
 	else if( z >= 240 && z < 260 && x < 10 && x > -10 )
@@ -165,7 +166,7 @@ float Track::toMiddleX(float x, float z){
 		return 0;
 }
 
-float Track::toMiddleZ(float x, float z){
+float Track2::toMiddleZ(float x, float z){
 	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
 		return z;
 	else if( z >= 240 && z < 260 && x < 10 && x > -10 )

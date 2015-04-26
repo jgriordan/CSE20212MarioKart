@@ -14,7 +14,7 @@ using namespace std;
 class Kart{
 
 public:
-	Kart(int,Track&);
+	Kart(int,Track*);
 	void DrawKart();
 	float getX();
 	float getY();
@@ -44,7 +44,7 @@ private:
 	float speed;
 	objloader car;
 	int cube;
-	Track& myTrack;
+	Track * myTrack;
 	clock_t begin;
 	int lap_n;
 	double lap;

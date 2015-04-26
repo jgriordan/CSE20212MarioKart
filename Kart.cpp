@@ -9,7 +9,7 @@
 #include <ctime>
 #include <string>
 
-Kart::Kart( int c, Track& track ):myTrack(track){
+Kart::Kart( int c, Track * track ):myTrack(track){
 	if (c > 4 || c < 1){
 		std::cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
 		choice = 1;
@@ -89,15 +89,15 @@ float Kart::getZ(){
 }
 
 void Kart::setLocation( float x, float y, float z ){
-	if( myTrack.isOnTrack( x, z ) ){
+	if( myTrack->isOnTrack( x, z ) ){
 		x_pos = x;
 		y_pos = y;
 		z_pos = z;
 	}
 	else{
 		speed = 0;
-		x_pos = myTrack.toMiddleX( x, z );
-		z_pos = myTrack.toMiddleZ( x, z );
+		x_pos = myTrack->toMiddleX( x, z );
+		z_pos = myTrack->toMiddleZ( x, z );
 	}
 }
 
