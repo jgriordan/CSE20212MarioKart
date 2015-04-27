@@ -7,8 +7,8 @@ void Track2::draw(){
 	int x, z;
 	float col;
 	glPushMatrix();
-	glTranslatef(-9.75,-1,0);
-	for( z=0; z<2240; z++ ){
+	glTranslatef(-9.75,-1,0.5);
+	for( z=0; z<3362; z++ ){
 		//determine colors for rainbow
 		col = ((float)(z%20))/20;
 		if( z%120 < 20 ){
@@ -160,13 +160,90 @@ void Track2::draw(){
 			}
 			glTranslatef(-20,0,-0.5);
 		}
+		// seventh turn (-220<z<-200, -390-z<x<-170)
+		else if( z < 2280 ){
+			glColor3f(0,0.5,0.5);
+			for( x=0; x<2280-z; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0.5,0,0);
+			}
+			glTranslatef(-0.5*(float)x+0.5,0,-0.5);
+		}
+ 		// eighth straight (-220<z<-200, -170<x<70)
+		else if( z<2760 ){
+			if( z == 2280 )
+				glTranslatef(0,0,0.5);
+			for( x=0; x<40; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0,0,0.5);
+			}
+			glTranslatef(0.5,0,-20);
+		}
+		// eighth turn (70<x<90, x-290<z<-200)
+		else if( z<2800 ){
+			glColor3f(0,0.5,0.5);
+			for( x=0; x<2800-z; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0,0,0.5);
+			}
+			glTranslatef(0.5,0,-0.5*(float)x+0.5);
+		}
+		// ninth straight (70<x<90, -200<z<-120)
+		else if( z<2960 ){
+			if( z == 2800 )
+				glTranslatef(-0.5,0,0);
+			for( x=0; x<40; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(-0.5,0,0);
+			}
+			glTranslatef(20,0,0.5);
+		}
+		// ninth turn (-100<z<-80, 70<x<-10-z)
+		else if( z < 3000 ){
+			glColor3f(0,0.5,0.5);
+			for( x=0; x<3000-z; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(-0.5,0,0);
+			}
+			glTranslatef(0.5*(float)x-0.5,0,0.5);
+		}
+		// tenth straight (-120<z<-100, 10<x<70)
+		else if( z<3121 ){
+			if( z == 3000 )
+				glTranslatef(0,0,-0.5);
+			for( x=0; x<40; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0,0,-0.5);
+			}
+			glTranslatef(-0.5,0,20);
+		}
+		// tenth turn (-10<x<10, -10-x<z<-100)
+		else if( z<3161 ){
+			glColor3f(0,0.5,0.5);
+			for( x=0; x<3161-z; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0,0,-0.5);
+			}
+			glTranslatef(-0.5,0,0.5*(float)x);
+		}
+		// last straight (-10<x<10, -100<z<0)
+		else{
+			if( z == 3161 )
+				glTranslatef(0.5,0,0.5);
+			for( x=0; x<40; x++ ){
+				glutSolidCube(0.5);
+				glTranslatef(0.5,0,0);
+			}
+			glTranslatef(-20,0,0.5);
+		}
+
 	}
 	glPopMatrix();
 }
 
 int Track2::isOnTrack( float x, float z ){
-	// first straight
-	if( x > -10 && x < 10 && z >= -240 && z <= 120 )
+	// first and last straight
+	if( x > -10 && x < 10 && z >= -100 && z <= 120 )
 		return 1;
 	// first turn
 	else if( z >= 120 && z < 140 && x <= 10 && x > z-130 )
@@ -204,13 +281,34 @@ int Track2::isOnTrack( float x, float z ){
 	// seventh straight
 	else if( x > -190 && x < -170 && z <= -120 && z >= -200 )
 		return 1;
+	// seventh turn
+	else if( z > -220 && z <= -200 && x <= -170 && x > -390-z )
+		return 1;
+	// eighth straight
+	else if( z > -220 && z < -200 && x >= -170 && x <= 70 )
+		return 1;
+	// eighth turn
+	else if( x >= 70 && x < 90 && z <= -200 && z > x-290 )
+		return 1;
+	// ninth straight
+	else if( x > 70 && x < 90 && z <= -120 && z >= -200 )
+		return 1;
+	// ninth turn
+	else if( z >= -120 && z < -100 && x >= 70 && x < -30-z )
+		return 1;
+	// tenth straight
+	else if( z > -120 && z < -100 && x <= 70 && x >= 10 )
+		return 1;
+	// tenth turn
+	else if( x > -10 && x <= 10 && z <= -100 && z > -110-x )
+		return 1;
 	else
 		return 0;
 }
 
 float Track2::toMiddleX(float x, float z){
-	// first straight
-	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 120 )
+	// first and last straight
+	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -100 && z <= 120 )
 		return 0;
 	// first turn
 	else if( z > 120 && z < 140 && x < 10 && x > -10 )
@@ -248,13 +346,34 @@ float Track2::toMiddleX(float x, float z){
 	// seventh straight
 	else if( ( ( x <= -190 && x > -195 ) || ( x >= -170 && x < -165 ) ) && z <= -120 && z >= -200 )
 		return -180;
+	// seventh turn
+	else if( z < -200 && z > -220 && x < -170 && x > -190 )
+		return -175;
+	// eighth straight
+	else if( ( ( z <= -220 && z > -225 ) || ( z >= -200 && z < -195 ) ) && x >= -170 && x <= 70 )
+		return x;
+	// eighth turn
+	else if( x > 70 && x < 90 && z > -220 && z < -200 )
+		return 75;
+	// ninth straight
+	else if( ( ( x <= 70 && x > 65 ) || ( x >= 90 && x < 95 ) ) && z <= -120 && z >= -200 )
+		return 80;
+	// ninth turn
+	else if( z < -100 && z > -120 && x < 90 && x > 70 )
+		return 75;
+	// tenth straight
+	else if( ( ( z <= -120 && z > -125 ) || ( z >= -100 && z < -95 ) ) && x >= 10 && x <= 70 )
+		return x;
+	// tenth turn
+	else if( x > -10 && x < 10 && z > -120 && z < -100 )
+		return 5;
 	else
 		return 0;
 }
 
 float Track2::toMiddleZ(float x, float z){
-	// first straight
-	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 120 )
+	// first and last straight
+	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -100 && z <= 120 )
 		return z;
 	// first turn
 	else if( z > 120 && z < 140 && x < 10 && x > -10 )
@@ -292,6 +411,27 @@ float Track2::toMiddleZ(float x, float z){
 	// seventh straight
 	else if( ( ( x <= -190 && x > -195 ) || ( x >= -170 && x < -165 ) ) && z <= -120 && z >= -200 )
 		return z;
+	// seventh turn
+	else if( z < -200 && z > -220 && x < -170 && x > -190 )
+		return -205;
+	// eighth straight
+	else if( ( ( z <= -220 && z > -225 ) || ( z >= -200 && z < -195 ) ) && x >= -170 && x <= 70 )
+		return -210;
+	// eighth turn
+	else if( x > 70 && x < 90 && z > -220 && z < -200 )
+		return -205;
+	// ninth straight
+	else if( ( ( x <= 70 && x > 65 ) || ( x >= 90 && x < 95 ) ) && z <= -120 && z >= -200 )
+		return z;
+	// ninth turn
+	else if( z < -100 && z > -120 && x < 90 && x > 70 )
+		return -115;
+	// tenth straight
+	else if( ( ( z <= -120 && z > -125 ) || ( z >= -100 && z < -95 ) ) && x >= 10 && x <= 70 )
+		return -110;
+	// tenth turn
+	else if( x > -10 && x < 10 && z > -120 && z < -100 )
+		return -105;
 	else
 		return 0;
 }
