@@ -12,9 +12,6 @@
 Camera myC;
 Track * myTrack;
 Kart * uKart;
-float red = 0;
-float green = 1;
-float blue = 1;
 
 float angle=90.;
 
@@ -83,7 +80,7 @@ void OnReshape( int w, int h ){
 
 void OnDraw(){
 	glClear( GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT );
-	glColor3f( red, green, blue );
+	glColor3f( 0, 1, 1 );
 	glShadeModel( GL_FLAT );
 	glEnable( GL_LIGHTING ); 
 	glEnable( GL_LIGHT0 );
@@ -100,7 +97,6 @@ void OnDraw(){
 	myC.updateLookAt();// update camera drawing
 	uKart->time();
 	uKart->lapFunc();
-	glColor3d( red, green, blue );
 	glPushMatrix();
 	glTranslatef( uKart->getX(), uKart->getY(), uKart->getZ() );// move to kart location
 	glRotatef( -90, 0, 1, 0 );// rotate so the kart faces forward initially
@@ -122,7 +118,7 @@ void OnDraw(){
 	glRasterPos2f(10,20);
 	std::stringstream s;
 	s << "LAP: " << uKart->getLap_n()+1;
-	string text = s.str();
+	std::string text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 	}
@@ -183,7 +179,6 @@ int main( int argc, char** argv ){
 	glutIdleFunc( idle );
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
-	//glutMotionFunc(mouse_motion);
 	Track1 myTrack1;
 	Track2 myTrack2;
 	myTrack = &myTrack2;

@@ -1,16 +1,17 @@
 #ifndef KART_H
 #define KART_H
 
-#include "Camera.h"
-#include "Track.h"
-#include <vector>
 #include <GL/glut.h>
+#include <vector>
 #include <ctime>
 #include <string>
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <sstream>
+#include "Camera.h"
+#include "Track.h"
 #include "objloader.h"
-
-
-using namespace std;
 
 class Kart{
 

@@ -1,17 +1,8 @@
 #include "Kart.h"
-#include <iostream>
-#include <GL/glut.h>
-#include <cmath>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include "objloader.h"
-#include <ctime>
-#include <string>
 
 Kart::Kart( int c, Track * track ):myTrack(track){
 	if (c > 4 || c < 1){
-		std::cout <<"Invalid choice! Defaulting to Kart 1." <<  endl;
+		std::cout <<"Invalid choice! Defaulting to Kart 1." <<  std::endl;
 		choice = 1;
 	}
 	else

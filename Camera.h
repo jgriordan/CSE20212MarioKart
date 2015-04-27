@@ -13,13 +13,9 @@ public:
 	Camera(float,float,float,float,float,float);
 	void updateLookAt();
 	void KartLocation(float,float,float,float);
-//	void rotateCCW(float);
-//	void rotateCW(float);
-//	void moveForward(float);
 private:
 	float eyeX, eyeY, eyeZ, centerX, centerY, centerZ;
 	float angle, radius;
-//	void setAngle(float);
 };
 
 #endif

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Camera.h"
 
 Camera::Camera(){

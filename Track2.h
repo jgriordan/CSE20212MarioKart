@@ -1,9 +1,6 @@
 #ifndef TRACK2_H
 #define TRACK2_H
 
-#include <stdlib.h>
-#include <GL/glut.h>
-#include <iostream>
 #include "Track.h"
 
 class Track2: public Track{

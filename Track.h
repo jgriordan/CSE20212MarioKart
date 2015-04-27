@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <GL/glut.h>
-#include <iostream>
 
 class Track{
 public:
