@@ -30,11 +30,13 @@ void Track1::draw(){
 			for( x=0; x<40; x++ ){
 				// make checkered start/finish line
 				if( z == 0 || z == 2 ){
+					glDisable(GL_LIGHTING);
 					if( x % 2 )
 						glColor3f(0.9,0.9,0.9);
 					else
 						glColor3f(0.1,0.1,0.1);
 				}else if( z == 1 ){
+					glDisable(GL_LIGHTING);
 					if( x % 2 )
 						glColor3f(0.1,0.1,0.1);
 					else
@@ -42,6 +44,7 @@ void Track1::draw(){
 				}
 				glutSolidCube(0.5);
 				glTranslatef(0.5,0,0);
+				glEnable(GL_LIGHTING);
 			 }
 			glTranslatef(-20,0,0.5);
 		}

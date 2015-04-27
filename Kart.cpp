@@ -24,6 +24,9 @@ Kart::Kart( int c, Track * track ):myTrack(track){
 	speed=0;
 	hasStarted = 0;
 	lap_n = 0;
+	bestTimeD = 1000;
+	bestTimeS = "-";
+	lastTime = "no lap";
 }
 
 void Kart::DrawKart(){
@@ -142,7 +145,14 @@ double Kart::time()
 	}
 	else if( hasStarted ){
 		lap_n++;
-		std::cout << "lap " << lap_n << ": " << lap << endl;
+		//std::cout << "lap " << lap_n << ": " << lap << endl;
+		std::ostringstream stm;
+        	stm << lap;
+		lastTime = stm.str();
+		if( bestTimeD > lap ){
+			bestTimeD = lap;
+        		bestTimeS = stm.str();
+		}
 		hasStarted = 0;
 	}
 	return elapsed;
@@ -182,4 +192,12 @@ void Kart::setLap_t(int l)
 double Kart::getLap_t()
 {
 	return lap;
+}
+
+std::string Kart::getBestTime(){
+	return bestTimeS;
+}
+
+std::string Kart::getLastTime(){
+	return lastTime;
 }

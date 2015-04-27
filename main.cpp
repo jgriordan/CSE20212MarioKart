@@ -65,7 +65,7 @@ void processSpecialKeys( int key, int x, int y ){
 		break;
 	case GLUT_KEY_DOWN:
 		if( uKart->getSpeed() > -4 )
-			uKart->setSpeed( uKart->getSpeed() - 0.04 + (uKart->getSpeed()/100) );
+			uKart->setSpeed( uKart->getSpeed() - ( 0.04 + (uKart->getSpeed()/100) ) );
 		break;
 	}
 
@@ -117,27 +117,53 @@ void OnDraw(){
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	//glColor3f(1.0f,1.0f,1.0f);
-	glRasterPos2f(50,50);
+	glDisable(GL_LIGHTING);
+	glColor3f(0.9,1.0,1.0);
+	glRasterPos2f(10,20);
 	std::stringstream s;
-	s << "TIME: " << uKart->getLap_t();
+	s << "LAP: " << uKart->getLap_n()+1;
 	string text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 	}
 	s.str("");
 	text.clear();
-	glRasterPos2f(50,80);
-	s << "LAP: " << uKart->getLap_n()+1;
+	glRasterPos2f(10,50);
+	s << "TIME: " << (int)uKart->getLap_t();
 	text = s.str();
 	for (int i = 0; i < text.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
+	s.str("");
+	text.clear();
+	glRasterPos2f(10,80);
+	s << "SPEED: " << (int)(uKart->getSpeed()*25) << " mph";
+	text = s.str();
+	for (int i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
+	s.str("");
+	text.clear();
+	glRasterPos2f(10,110);
+	s << "BEST: " << uKart->getBestTime();
+	text = s.str();
+	for (int i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+	}
+	if( uKart->getLap_t() < 5 && uKart->getBestTime() != "-" ){
+		s.str("");
+		text.clear();
+		glRasterPos2f(10,140);
+		s << "LAP TIME: " << uKart->getLastTime();
+		text = s.str();
+		for (int i = 0; i < text.size(); ++i) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
+		}
 	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
-
 	glutSwapBuffers();
 }
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <GL/glut.h>
 #include <ctime>
+#include <string>
 #include "objloader.h"
 
 
@@ -34,6 +35,8 @@ public:
 	void setLap_n(int = 1);
 	int getLap_n();
 	void setChoice(int);
+	std::string getBestTime();
+	std::string getLastTime();
 private:
 	int mushroom;
 	int choice;
@@ -48,6 +51,9 @@ private:
 	clock_t begin;
 	int lap_n;
 	double lap;
+	double bestTimeD;
+	std::string bestTimeS;
+	std::string lastTime;
 	int hasStarted;
 };
 
