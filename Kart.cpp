@@ -7,14 +7,14 @@ Kart::Kart( int c, Track * track, int trackOpt ):myTrack(track){
 	}
 	else
 		choice = c;
-	mushroom = 3;
-	x_pos=0.0;
+	mushroom = 3;//Mushroom increase Kart speed
+	x_pos=0.0;//Set initial position
 	y_pos=0.0;
 	z_pos=0.0;
 	angle=M_PI/4;
 	speed=0;
-	hasStarted = 0;
-	lap_n = 0;
+	hasStarted = 0;//Determine if the Kart has started.
+	lap_n = 0;//Lap Counter
 	bestTimeD = 1000;
 	bestTimeS = "-";
 	lastTime = "no lap";
@@ -26,56 +26,25 @@ Kart::Kart( int c, Track * track, int trackOpt ):myTrack(track){
 }
 
 void Kart::DrawKart(){
-	FILE * object;
-	//vector< glm::vec3 > vertices;
-	//vector< glm::vec2 > uvs;
-	//vector< glm::vec3 > normals; // Won't be used at the moment.
 	switch (choice){
 		case 1:
 			glutSolidTeapot(1.);
-			//bool res = objloader("Kart1.obj", vertices, uvs, normals);
-			//if (res == false){
-			//	std::cout << "Could not draw obj" << endl;
-			//}
-			//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 			break;
 		case 2:
 			cube=car.load("cow.obj");      //load it
 			glCallList(cube);       //and display it
-			//glutSwapBuffers(); //swap the buffers
-			//car.render();
-			//car.objdatadisplay();
-			/*//bool res = objloader("Kart2.obj", vertices, uvs, normals);
-                        if (res == false){
-                                std::cout << "Could not draw obj" << endl;
-                        }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
 		case 3:
-			//car.objloader( "cow.obj");
-			//car.render();
-			/*//bool res = objloader("Kart3.obj", vertices, uvs, normals);
-                        if (res == false){
-                                cout << "Could not draw obj" << endl;
-                        }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
-                        break;
-		case 4:
-			/*bool res = objloader("Kart4.obj", vertices, uvs, normals);
-                        if (res == false){
-                                std::cout << "Could not draw obj" << endl;
-                        }
-                        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);*/
                         break;
 	}
 		
 } 
 
 void Kart :: setChoice(int c){
-	choice=c;
+	choice=c;//Set Kart Choice
 }			
 
-float Kart::getX(){
+float Kart::getX(){//The following functions get the x,y, and z position of the kart.
 	return x_pos;
 }
 
@@ -87,7 +56,7 @@ float Kart::getZ(){
 	return z_pos;
 }
 
-void Kart::setLocation( float x, float y, float z ){
+void Kart::setLocation( float x, float y, float z ){//Used to reset the Kart after falling off of the edge.
 	if( myTrack->isOnTrack( x, z ) ){
 		x_pos = x;
 		y_pos = y;
@@ -117,7 +86,7 @@ void Kart::setAngle(float ang){
 	int ang_int;
 	if (ang > 360)
 	{
-		ang_w = ang/360;
+		ang_w = ang/360;//Ensures that the angle is in the proper direction when resetting the Kart.
 		ang = ang - 360*ang_w;
 	}
 	else if (ang <=0)
@@ -127,7 +96,6 @@ void Kart::setAngle(float ang){
 		ang = ang + 360*ang_w;
 	}
 	angle=ang*M_PI/180;
-//	std::cout << angle << std::endl;
 }
 
 int Kart::wrongWay()
