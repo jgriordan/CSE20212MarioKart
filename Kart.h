@@ -16,7 +16,7 @@
 class Kart{
 
 public:
-	Kart(int,Track*);
+	Kart(int,Track*,int);
 	void DrawKart();
 	float getX();
 	float getY();
@@ -38,6 +38,7 @@ public:
 	void setChoice(int);
 	std::string getBestTime();
 	std::string getLastTime();
+	int wrongWay();
 private:
 	int mushroom;
 	int choice;
@@ -56,6 +57,9 @@ private:
 	std::string bestTimeS;
 	std::string lastTime;
 	int hasStarted;
+	int pos[4];
+	int pos_2[10];
+	int trackSelect;
 };
 
 #endif	
