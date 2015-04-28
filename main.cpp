@@ -8,12 +8,13 @@
 #include "Track1.h"
 #include "Track2.h"
 #include "Kart.h"
-
+#include <SDL/SDL_mixer.h>
 Camera myC;
 Track * myTrack;
 Kart * uKart;
 Track1 myTrack1;
 Track2 myTrack2;
+Mix_Music *music;
 
 float angle=90.;
 
@@ -25,6 +26,7 @@ int trackChoice = 0;
 int kartChoice = 0;
 
 int myrandom( int m ){
+	srand(time(NULL));
 	return rand() % m;
 }
 
@@ -50,6 +52,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		} else if (key == 50) {
 			trackChoice = 2;
 			myTrack = &myTrack2;
+			
 		}
 	} else {
 		if (key == 49) {
@@ -296,6 +299,16 @@ void OnExit(){}
 
 // part that actually runs
 int main( int argc, char** argv ){
+	std::string song;
+	if (myrandom(2)==1)
+		song="Heman.wav";
+	else
+		song="Nyan.wav";
+	Mix_OpenAudio(41000,MIX_DEFAULT_FORMAT,2,4096); 
+        music=Mix_LoadMUS(song.c_str());
+
+        Mix_PlayMusic(music, -1);
+
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE );
 	glutInitWindowSize( width, height );
