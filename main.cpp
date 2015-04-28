@@ -12,6 +12,8 @@
 Camera myC;
 Track * myTrack;
 Kart * uKart;
+Track1 myTrack1;
+Track2 myTrack2;
 
 float angle=90.;
 
@@ -21,9 +23,6 @@ int width = 960, height = 720;
 // also control flow from menus to gameplay
 int trackChoice = 0;
 int kartChoice = 0;
-// need another controlling variable to make sure that gameplay is started after track and kart are properly instantiated
-int startGame = 0;
-
 
 int myrandom( int m ){
 	return rand() % m;
@@ -38,7 +37,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if( key == 27 ){
 		exit(0);
 	}
-	if (startGame) {
+	if (kartChoice) {
 		// use spacebar to activate mushroom
 		if( key == 32 ){
 			uKart->useShroom();
@@ -47,28 +46,33 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (!trackChoice) {
 		if (key == 49) {
 			trackChoice = 1;
-			std::cout << trackChoice << std::endl;
+			myTrack = &myTrack1;
 		} else if (key == 50) {
 			trackChoice = 2;
-			std::cout << trackChoice << std::endl;
+			myTrack = &myTrack2;
 		}
 	} else {
 		if (key == 49) {
 			kartChoice = 1;
-			std::cout << kartChoice << std::endl;
-			std::cout << startGame << std::endl;
+			uKart = new Kart( kartChoice, myTrack, trackChoice);
+			uKart->setAngle(angle);
+			uKart->setInitialTime();
 		} else if (key == 50) {
 			kartChoice = 2;
-			std::cout << kartChoice << std::endl;
+			uKart = new Kart( kartChoice, myTrack, trackChoice);
+			uKart->setAngle(angle);
+			uKart->setInitialTime();
 		} else if (key == 51) {
 			kartChoice = 3;
-			std::cout << kartChoice << std::endl;
+			uKart = new Kart( kartChoice, myTrack, trackChoice);
+			uKart->setAngle(angle);
+			uKart->setInitialTime();
 		}
 	}
 }
 
 void processSpecialKeys( int key, int x, int y ){
-	if (startGame) {
+	if (kartChoice) {
 		switch(key){
 		case GLUT_KEY_RIGHT:
 			angle -= 1;
@@ -109,7 +113,7 @@ void OnReshape( int w, int h ){
 }
 
 void OnDraw(){
-	if (startGame) {
+	if (kartChoice) {
 		glClear( GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT );
 		glColor3f( 0, 1, 1 );
 		glShadeModel( GL_FLAT );
@@ -245,6 +249,10 @@ void OnDraw(){
 			}
 			s.str("");
 			text.clear();
+			glPopMatrix();
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glMatrixMode(GL_MODELVIEW);
 		} else {
 			glRasterPos2f(300,400);
 			text = "Choose your kart:";
@@ -274,7 +282,10 @@ void OnDraw(){
 			}
 			s.str("");
 			text.clear();
-
+			glPopMatrix();
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glMatrixMode(GL_MODELVIEW);
 		}
 	}
 	glutSwapBuffers();
@@ -296,22 +307,6 @@ int main( int argc, char** argv ){
 	glutIdleFunc( idle );
 	glutKeyboardFunc( processNormalKeys );
 	glutSpecialFunc( processSpecialKeys );
-	Track1 myTrack1;
-	Track2 myTrack2;
-	// program will seg fault without conditional
-	if (kartChoice) {
-		if (trackChoice == 1)	
-			myTrack = &myTrack1;
-		else if (trackChoice == 2)
-			myTrack = &myTrack2;
-		std::cout << kartChoice << std::endl << trackChoice << std::cout;
-		uKart = new Kart( kartChoice, myTrack, trackChoice);
-		uKart->setAngle(angle);
-		uKart->setInitialTime();
-		std::cout << "kart chosen" << std::endl;
-		startGame = 1;
-	}
-
 	glutMainLoop();
 	return 0;
 }
