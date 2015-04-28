@@ -68,7 +68,6 @@ int objloader::load(const char* filename)
         std::ifstream in(filename);     //open the model file
         if(!in.is_open())
         {
-                std::cout << "Nor oepened" << std::endl; //if it's not opened then error message, and return with -1
                 return -1;
         }
         char buf[256];  //temp buffer
@@ -150,7 +149,6 @@ int objloader::load(const char* filename)
                 std::ifstream mtlin(filen);     //open the file
                 if(!mtlin.is_open())    //if not opened error message, clean all memory, return with -1
                 {
-                        std::cout << "connot open the material file" << std::endl;
                         clean();
                         return -1;
                 }
@@ -244,7 +242,6 @@ int objloader::load(const char* filename)
                 ismaterial=false;
         else    //else we have
                 ismaterial=true;
-        std::cout << vertex.size() << " " << normals.size() << " " << faces.size() << " " << materials.size() << std::endl;     //test purposes
         //draw
         int num;
         num=glGenLists(1);      //I generate a unique identifier for the list
