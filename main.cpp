@@ -97,6 +97,7 @@ void OnDraw(){
 	myC.updateLookAt();// update camera drawing
 	uKart->time();
 	uKart->lapFunc();
+	uKart->wrongWay();
 	glPushMatrix();
 	glTranslatef( uKart->getX(), uKart->getY(), uKart->getZ() );// move to kart location
 	glRotatef( -90, 0, 1, 0 );// rotate so the kart faces forward initially
@@ -156,6 +157,16 @@ void OnDraw(){
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 		}
 	}
+	if (uKart->wrongWay() == 1)
+	{
+		s.str("");
+		text.clear();
+		glRasterPos2f(10, 170);
+		s << "WRONG WAY!";
+		text = s.str();
+		for (int i = 0; i < text.size(); ++i)
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
@@ -181,8 +192,14 @@ int main( int argc, char** argv ){
 	glutSpecialFunc( processSpecialKeys );
 	Track1 myTrack1;
 	Track2 myTrack2;
-	myTrack = &myTrack2;
-	uKart = new Kart( 1, myTrack );
+	int trackChoice = 1;  // to be replaced with user input
+	if (trackChoice == 1)	
+		myTrack = &myTrack1;
+	else if (trackChoice == 2)
+		myTrack = &myTrack2;
+//	myTrack = &myTrack1;
+//	myTrack = &myTrack2;
+	uKart = new Kart( 1, myTrack, trackChoice);
 	uKart->setAngle(angle);
 	uKart->setInitialTime();
 	glutMainLoop();
