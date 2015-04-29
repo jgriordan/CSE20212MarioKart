@@ -1,7 +1,7 @@
 #include "Kart.h"
 
 Kart::Kart( int c, Track * track, int trackOpt ):myTrack(track){
-	if (c > 4 || c < 1){
+	if (c > 3 || c < 1){  //check to see if kart slection is valid
 		std::cout <<"Invalid choice! Defaulting to Kart 1." <<  std::endl;
 		choice = 1;
 	}
@@ -18,9 +18,9 @@ Kart::Kart( int c, Track * track, int trackOpt ):myTrack(track){
 	bestTimeD = 1000;
 	bestTimeS = "-";
 	lastTime = "no lap";
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)	// initialize both position arrays to 0, 
 		pos[i] = 0;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)	// these will be set to 1's as the kart successfully completes a lap
 		pos_2[i] = 0;
 	trackSelect = trackOpt;
 }
@@ -97,7 +97,7 @@ float Kart::getSpeed() {
 	return speed;
 }
 
-void Kart::setAngle(float ang){
+void Kart::setAngle(float ang){ // function sets angle to value between 0 and 2pi
 	int ang_w;
 	int ang_int;
 	if (ang > 360)
@@ -117,17 +117,17 @@ void Kart::setAngle(float ang){
 int Kart::wrongWay()
 {
 	int wrongway = 0;
-	if (trackSelect == 1)
+	if (trackSelect == 1)	// the bounds correspond to the bounds for track1, given these limits, the angle must be within 110 degrees of due straight
 	{
 		if (x_pos >= -10 && x_pos <= 10)
 		{
 			if (angle > 3.49065 && angle < 5.93411)
-				wrongway = 1;
+				wrongway = 1;	// indicate that the kart is in the wrong direction. Other functions will use this value to determine behavior
 			else
-				if (speed*25 > 0)
-					pos[0] = 1;
+				if (speed*25 > 0)	// this is the value displayed to the screen
+					pos[0] = 1;	// this index corresponds to the first segment of the track, designated by the bounds above
 		}
-		else if (z_pos >= 240 && z_pos <= 260)
+		else if (z_pos >= 240 && z_pos <= 260)	// second straight
 		{
 			if (angle > 5.06145 || angle < 1.22173)
 				wrongway = 1;
@@ -135,7 +135,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos[1] = 1;
 		}
-		else if (x_pos >= 150 && x_pos <= 170)
+		else if (x_pos >= 150 && x_pos <= 170)	// third straight
 		{
 			if (angle > .349065 && angle < 2.79252)
 				wrongway = 1;	
@@ -143,7 +143,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos[2] = 1;
 		}
-		else if (z_pos <= -240 && z_pos >= -260)
+		else if (z_pos <= -240 && z_pos >= -260)	// fourth straight
 		{
 			if (angle > 1.91986 && angle < 4.36332)
 				wrongway = 1;
@@ -153,8 +153,8 @@ int Kart::wrongWay()
 		} 
 	}
 	else
-	{ 						// use this stuff for track1
-		if(x_pos >= -10 && x_pos <= 10)
+	{ 					
+		if(x_pos >= -10 && x_pos <= 10)		// these bounds correspond to track2. Same deal as above, but just more segments to consider
 		{
 			if (angle > 3.49065 && angle < 5.93411)
 				wrongway = 1;
@@ -162,7 +162,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[0] = 1;
 		}
-		else if (z_pos >= 120 && z_pos <= 140)
+		else if (z_pos >= 120 && z_pos <= 140)	//second straight
 		{
 			if (angle > 5.06145 || angle < 1.22173)
 				wrongway = 1;
@@ -170,7 +170,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[1] = 1;
 		}
-		else if (x_pos >= 90 && x_pos <= 110)
+		else if (x_pos >= 90 && x_pos <= 110)	//third straight
 		{
 			if (angle > 3.49065 && angle < 5.93411)
 				wrongway = 1;
@@ -178,7 +178,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[2] = 1;	
 		}
-		else if (z_pos >= 260 && z_pos <= 280)
+		else if (z_pos >= 260 && z_pos <= 280)	// fourth straight
 		{
 			if (angle > 1.91986 && angle < 4.36332)
 				wrongway = 1;
@@ -186,7 +186,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[3] = 1;
 		}
-		else if (x_pos >= -90 && x_pos <= -70)
+		else if (x_pos >= -90 && x_pos <= -70)	// fifth straight
 		{
 			if (angle > .349065 && angle < 2.79252)
 				wrongway = 1;
@@ -194,7 +194,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[4] = 1;
 		}
-		else if (z_pos >= -120 && z_pos <= -100 && x_pos >= -170 && x_pos <= -90)
+		else if (z_pos >= -120 && z_pos <= -100 && x_pos >= -170 && x_pos <= -90)	// sixth straight
 		{
 			if (angle > 1.91986 && angle < 4.36332)
 				wrongway = 1;
@@ -202,7 +202,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[5] = 1;
 		}
-		else if (x_pos >= -190 && x_pos <= -170)
+		else if (x_pos >= -190 && x_pos <= -170)	// seventh straight
 		{
 			if (angle > .349065 && angle < 2.79252)
 				wrongway = 1;
@@ -210,7 +210,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[6] = 1;
 		}
-		else if (z_pos >= -220 && z_pos <= -200)
+		else if (z_pos >= -220 && z_pos <= -200)	// eighth straight
 		{
 			if (angle > 5.06145 || angle < 1.22173)
 				wrongway = 1;
@@ -218,7 +218,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[7] = 1;
 		}
-		else if (x_pos >= 70 && x_pos <= 90)
+		else if (x_pos >= 70 && x_pos <= 90)	//ninth straight
 		{
 			if (angle > 3.49065 && angle < 5.93411)
 				wrongway = 1;
@@ -226,7 +226,7 @@ int Kart::wrongWay()
 				if (speed*25 > 0)
 					pos_2[8] = 1;
 		}
-		else if (z_pos >= -120 && z_pos <= -100 && x_pos >= 10 && x_pos <= 70)
+		else if (z_pos >= -120 && z_pos <= -100 && x_pos >= 10 && x_pos <= 70) // tenth straight
 		{
 			if (angle > 1.91986 && angle < 4.36332)
 				wrongway = 1;
@@ -250,19 +250,13 @@ void Kart::setInitialTime()
 	begin = clock();
 }
 
-double Kart::time()
+double Kart::time()		// this function judges the time on a lap relative to the private data memebr begin. It also determines the best time
 {
-//	for(int i = 0; i < 4; i++)
-//		std::cout << pos[i];
-//	std::cout << std::endl;
-//	std::cout << hasStarted << " " << wrongWay() << std::endl;
 	clock_t now = clock();
 	int sum_pos = 0;
 	double elapsed = double(now-begin)/CLOCKS_PER_SEC;
 	if (elapsed > 1)
 	{
-		//std::cout << std::endl;
-		//std::cout << elapsed << std::endl;
 		hasStarted = 1;
 		lap = elapsed;
 	}
@@ -271,7 +265,7 @@ double Kart::time()
 		if (trackSelect == 1)
 		{
 			for (int i = 0; i < 4; i++) 
-				sum_pos += pos[i]; 
+				sum_pos += pos[i]; //pos[] corresponds to track1 indexes
 			if (sum_pos == 4)
 			{
 				lap_n++;
@@ -290,7 +284,7 @@ double Kart::time()
 		else if (trackSelect == 2)
 		{
 			for (int i = 0; i < 10; i++) 
-				sum_pos += pos_2[i]; 
+				sum_pos += pos_2[i]; //pos_2[] corresponds to track2 indexes
 			if (sum_pos == 10)
 			{
 				lap_n++;
@@ -319,16 +313,26 @@ clock_t Kart::getInitialTime()
 void Kart::lapFunc()
 {
 	int sum_pos = 0;
-	if (getX() < 10 && getX() > -10)
+	if (getX() < 10 && getX() > -10)	// operates at the finish line...
 	{
-		if ( getZ() >= 0 && getZ() <= 4)
+		if ( getZ() >= 0 && getZ() <= 4) //... which is actually a zone
 		{
 			if (wrongWay() == 0)
 			{
-				for (int i = 0; i < 10; i++)  // again using 10 here for track2, 4 for track1
-					sum_pos += pos_2[i]; // also use pos_2 array for track2, pos for track1
-				if (sum_pos == 10 || sum_pos == 0)
-					begin = clock();
+				if (trackSelect == 1) // easy track conditions to reset the timer
+				{
+					for (int i = 0; i < 4; i++)  
+						sum_pos += pos[i]; 
+					if (sum_pos == 4)
+						begin = clock();
+				}	
+				else if (trackSelect == 2)	// hard track conditions to reset the timer
+				{
+					for (int i = 0; i < 10; i++)  
+						sum_pos += pos_2[i]; 
+					if (sum_pos == 10)
+						begin = clock();
+				}
 			}
 		}
 	}
