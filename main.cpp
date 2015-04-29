@@ -168,7 +168,7 @@ void OnDraw(){
 		// clear strings and reset raster position
 		s.str("");
 		text.clear();
-		glRasterPos2f(10,50);
+		glRasterPos2f(750,20);
 		s << "TIME: " << (int)uKart->getLap_t();
 		text = s.str();
 		for (int i = 0; i < text.size(); ++i) {
@@ -177,7 +177,7 @@ void OnDraw(){
 		// clear strings and reset raster position
 		s.str("");
 		text.clear();
-		glRasterPos2f(10,80);
+		glRasterPos2f(10,50);
 		s << "SPEED: " << (int)(uKart->getSpeed()*25) << " mph";
 		text = s.str();
 		for (int i = 0; i < text.size(); ++i) {
@@ -186,7 +186,7 @@ void OnDraw(){
 		// clear strings and reset raster position
 		s.str("");
 		text.clear();
-		glRasterPos2f(10,110);
+		glRasterPos2f(750,50);
 		s << "BEST: " << uKart->getBestTime();
 		text = s.str();
 		for (int i = 0; i < text.size(); ++i) {
@@ -195,7 +195,7 @@ void OnDraw(){
 		if( uKart->getLap_t() < 5 && uKart->getBestTime() != "-" ){
 			s.str("");
 			text.clear();
-			glRasterPos2f(10,140);
+			glRasterPos2f(750,80);
 			s << "LAP TIME: " << uKart->getLastTime();//Display lap time.
 			text = s.str();
 			for (int i = 0; i < text.size(); ++i) {
@@ -206,7 +206,7 @@ void OnDraw(){
 		if (uKart->wrongWay() == 1) {
 			s.str("");
 			text.clear();
-			glRasterPos2f(10, 170);
+			glRasterPos2f(750, 110);
 			s << "WRONG WAY!";
 			text = s.str();
 			for (int i = 0; i < text.size(); ++i)
@@ -216,6 +216,14 @@ void OnDraw(){
 			std::cout << "Best Time: "<< uKart->getBestTime() << std::endl;
 			exit(0);
 		}
+		// display the number of mushrooms
+		s.str("");
+		text.clear();
+		glRasterPos2f(10, 80);
+		s << "Mushrooms: " << uKart->getShroom() << std::endl;
+		text = s.str();
+		for (int i = 0; i < text.size(); ++i)
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();

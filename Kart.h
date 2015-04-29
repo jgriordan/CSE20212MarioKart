@@ -39,6 +39,7 @@ public:
 	std::string getBestTime();
 	std::string getLastTime();
 	int wrongWay();//Determine if the Kart is going the wrong way.
+	int getShroom();
 private:
 	int mushroom;//Number of mushrooms available.
 	int choice;//Kart Choice

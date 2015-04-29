@@ -250,11 +250,11 @@ void Kart::useShroom(){
 }
 
 void Kart::setInitialTime()
-{
+{	
 	begin = clock();
 }
 
-double Kart::time()		// this function judges the time on a lap relative to the private data memebr begin. It also determines the best time
+double Kart::time()		// this function judges the time on a lap relative to the private data member begin. It also determines the best time
 {
 	clock_t now = clock();
 	int sum_pos = 0;
@@ -327,14 +327,14 @@ void Kart::lapFunc()
 				{
 					for (int i = 0; i < 4; i++)  
 						sum_pos += pos[i]; 
-					if (sum_pos == 4)
+					if (sum_pos == 4 || sum_pos == 0) // actvate when full lap complete or when before the race starts
 						begin = clock();
 				}	
 				else if (trackSelect == 2)	// hard track conditions to reset the timer
 				{
 					for (int i = 0; i < 10; i++)  
 						sum_pos += pos_2[i]; 
-					if (sum_pos == 10)
+					if (sum_pos == 10 || sum_pos == 0) // activate when full lap complete or when before the race starts
 						begin = clock();
 				}
 			}
@@ -360,6 +360,11 @@ void Kart::setLap_t(int l)
 double Kart::getLap_t()
 {
 	return lap;
+}
+
+int Kart::getShroom()
+{
+	return mushroom;
 }
 
 std::string Kart::getBestTime(){
