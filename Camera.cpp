@@ -11,8 +11,6 @@ Camera::Camera(){
 	centerX = 0;
 	centerY = 0;
 	centerZ = 0;
-	// no rotation
-	angle = 0;
 	// x,y distance from look at is 20
 	radius = 20;
 }
@@ -26,15 +24,6 @@ Camera::Camera( float eX, float eY, float eZ, float cX, float cY, float cZ ){
 	centerX = cX;
 	centerY = cY;
 	centerZ = cZ;
-	// calculate starting angle based on x and z
-	if( eX == 0 && eZ > 0 )
-		angle = 90;
-	else if( eX == 0 && eZ < 0 )
-		angle = 270;
-	else if( eZ == 0 )
-		angle = 0;
-	else
-		angle = atan( eZ / eX ) / M_PI * 180;
 	// calculate distance from look at based on x and z
 	radius = sqrt( eX*eX + eZ*eZ );
 }
