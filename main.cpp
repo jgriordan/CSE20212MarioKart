@@ -205,6 +205,10 @@ void OnDraw(){
 			for (int i = 0; i < text.size(); ++i)
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
 		}
+		if (uKart->getLap_n()+1==4){
+			std::cout << "Best Time: "<< uKart->getBestTime() << std::endl;
+			exit(0);
+		}
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
