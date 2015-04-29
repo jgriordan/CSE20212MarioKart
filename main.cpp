@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <sstream>
+#include <sstream>//For displaying the text to the screen.
 #include <GL/glut.h>
 #include <cmath>
 #include <ctime>
@@ -8,11 +8,11 @@
 #include "Track1.h"
 #include "Track2.h"
 #include "Kart.h"
-#include <SDL/SDL_mixer.h>
+#include <SDL/SDL_mixer.h>//For the music
 Camera myC;
 Track * myTrack;
 Kart * uKart;
-Track1 myTrack1;
+Track1 myTrack1;//Two possible tracks
 Track2 myTrack2;
 Mix_Music *music;
 
@@ -25,7 +25,7 @@ int width = 960, height = 720;
 int trackChoice = 0;
 int kartChoice = 0;
 
-int myrandom( int m ){
+int myrandom( int m ){//generates random integer for the music to be played
 	srand(time(NULL));
 	return rand() % m;
 }
@@ -48,13 +48,13 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (!trackChoice) {
 		if (key == 49) {
 			trackChoice = 1;
-			myTrack = &myTrack1;
+			myTrack = &myTrack1;//Easy track chosen
 		} else if (key == 50) {
 			trackChoice = 2;
-			myTrack = &myTrack2;
+			myTrack = &myTrack2;//Hard track chosen
 			
 		}
-	} else {
+	} else {//Once the track has been chosen
 		if (key == 49) {
 			kartChoice = 1;
 			uKart = new Kart( kartChoice, myTrack, trackChoice);
@@ -78,15 +78,15 @@ void processSpecialKeys( int key, int x, int y ){
 	if (kartChoice) {
 		switch(key){
 		case GLUT_KEY_RIGHT:
-			angle -= 1;
+			angle -= 1;//adjust the angle
 			uKart->setAngle(angle);
-			if( uKart->getSpeed() > 0 )
+			if( uKart->getSpeed() > 0 )//Begin slowing down for the turn.
 				uKart->setSpeed( uKart->getSpeed() - 0.01 );
 			else if( uKart->getSpeed() < 0 )
 				uKart->setSpeed( uKart->getSpeed() + 0.01 ); 
 			break;
 		case GLUT_KEY_LEFT:
-			angle += 1;
+			angle += 1;//Update the angle.
 			uKart->setAngle(angle);
 			if( uKart->getSpeed() > 0 )
 				uKart->setSpeed( uKart->getSpeed() - 0.01 );
@@ -94,11 +94,11 @@ void processSpecialKeys( int key, int x, int y ){
 				uKart->setSpeed( uKart->getSpeed() + 0.01 ); 
 			break;
 		case GLUT_KEY_UP:
-			if( uKart->getSpeed() < 4 )
+			if( uKart->getSpeed() < 4 )//Increase the speed if the up arrow is pressed.
 				uKart->setSpeed( uKart->getSpeed() + 0.04 - (uKart->getSpeed()/100) );
 			break;
 		case GLUT_KEY_DOWN:
-			if( uKart->getSpeed() > -4 )
+			if( uKart->getSpeed() > -4 )//Reverse of the up arrow.
 				uKart->setSpeed( uKart->getSpeed() - ( 0.04 + (uKart->getSpeed()/100) ) );
 			break;
 		}
@@ -108,7 +108,7 @@ void processSpecialKeys( int key, int x, int y ){
 void OnReshape( int w, int h ){
 	if( h == 0 )
 		h = 1;
-	glViewport( 0, 0, w, h );
+	glViewport( 0, 0, w, h );//Viewport is the whole screen.
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective( 45, (float) w / h, 0.1, 100 );
@@ -126,14 +126,14 @@ void OnDraw(){
 		float ambient[] = {1, 0, 0, 1}; 
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 		glLoadIdentity();
-		if( uKart->getSpeed() > 0 )
+		if( uKart->getSpeed() > 0 )//Natural deceleration
 			uKart->setSpeed( uKart->getSpeed() - 0.02 );
-		else if( uKart->getSpeed() < 0 )
+		else if( uKart->getSpeed() < 0 )//Natural slowing of reverse
 			uKart->setSpeed( uKart->getSpeed() + 0.02 );
 		uKart->setLocation( uKart->getX() - uKart->getSpeed() * cos( uKart->getAngle() ), uKart->getY(), uKart->getZ() + uKart->getSpeed() * sin( uKart->getAngle() ) );
 		myC.KartLocation( uKart->getX(), uKart->getY(), uKart->getZ(), uKart->getAngle() );// set camera to behind kart
 		myC.updateLookAt();// update camera drawing
-		uKart->time();
+		uKart->time();//Update time,lap, and check for wrong direction.
 		uKart->lapFunc();
 		uKart->wrongWay();
 		glPushMatrix();
@@ -189,7 +189,7 @@ void OnDraw(){
 			s.str("");
 			text.clear();
 			glRasterPos2f(10,140);
-			s << "LAP TIME: " << uKart->getLastTime();
+			s << "LAP TIME: " << uKart->getLastTime();//Display lap time.
 			text = s.str();
 			for (int i = 0; i < text.size(); ++i) {
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
@@ -239,7 +239,7 @@ void OnDraw(){
 			s.str("");
 			text.clear();
 			glRasterPos2f(310,430);
-			text = "Easy Track - 1";
+			text = "Easy Track - 1";//Display the track choices
 			for (int i = 0; i < text.size(); ++i) {
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 			}
@@ -252,7 +252,7 @@ void OnDraw(){
 			}
 			s.str("");
 			text.clear();
-			glPopMatrix();
+			glPopMatrix();//Update the screen
 			glMatrixMode(GL_PROJECTION);
 			glPopMatrix();
 			glMatrixMode(GL_MODELVIEW);
@@ -265,7 +265,7 @@ void OnDraw(){
 			s.str("");
 			text.clear();
 			glRasterPos2f(310,430);
-			text = "Teapot - 1";
+			text = "Teapot - 1";//Display the Kart choices
 			for (int i = 0; i < text.size(); ++i) {
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 			}
@@ -285,7 +285,7 @@ void OnDraw(){
 			}
 			s.str("");
 			text.clear();
-			glPopMatrix();
+			glPopMatrix();//Update the screen.
 			glMatrixMode(GL_PROJECTION);
 			glPopMatrix();
 			glMatrixMode(GL_MODELVIEW);
@@ -300,7 +300,7 @@ void OnExit(){}
 // part that actually runs
 int main( int argc, char** argv ){
 	std::string song;
-	if (myrandom(2)==1)
+	if (myrandom(2)==1)//Randomly pick a song to play for the ride.
 		song="Heman.wav";
 	else
 		song="Nyan.wav";
@@ -312,13 +312,13 @@ int main( int argc, char** argv ){
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DEPTH|GLUT_RGBA|GLUT_DOUBLE );
 	glutInitWindowSize( width, height );
-	glutCreateWindow( "Mario Kart" );
+	glutCreateWindow( "Mario Kart" );//Create a window
 	glutDisplayFunc( OnDraw );// the important drawing function
 	glutReshapeFunc( OnReshape );
 	glEnable( GL_DEPTH_TEST );
 	atexit( OnExit );
-	glutIdleFunc( idle );
-	glutKeyboardFunc( processNormalKeys );
+	glutIdleFunc( idle );//Re display when nothing is done.
+	glutKeyboardFunc( processNormalKeys );//Process the key presses.
 	glutSpecialFunc( processSpecialKeys );
 	glutMainLoop();
 	return 0;
