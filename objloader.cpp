@@ -1,12 +1,10 @@
 #include "objloader.h"
-        //nothing to explain here
         coordinate::coordinate(float a,float b,float c)
         {
                 x=a;
                 y=b;
                 z=c;
         }
-        //nothing to explain here
         face::face(int facen,int f1,int f2,int f3,int t1,int t2,int t3,int m){
                 facenum=facen;
                 faces[0]=f1;
@@ -18,7 +16,6 @@
                 mat=m;
                 four=false;
         }
-        //nothing to explain here
         face::face(int facen,int f1,int f2,int f3,int f4,int t1,int t2,int t3,int t4,int m){
                 facenum=facen;
                 faces[0]=f1;
@@ -33,7 +30,6 @@
                 four=true;
         }
        
-        //nothing to explain here
         material::material(const char* na,float al,float n,float ni2,float* d,float* a,float* s,int i,int t)
         {
                 name=na;
@@ -56,7 +52,6 @@
                 texture=t;
         }
        
-        //nothing to explain here
         texcoord::texcoord(float a,float b)
         {
                 u=a;
