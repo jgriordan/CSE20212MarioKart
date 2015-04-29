@@ -40,7 +40,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		exit(0);
 	}
 	if (kartChoice) {
-		// use spacebar to activate mushroom
+		// use spacebar to activate mushroom (only during gameplay)
 		if( key == 32 ){
 			uKart->useShroom();
 		}
@@ -116,6 +116,7 @@ void OnReshape( int w, int h ){
 }
 
 void OnDraw(){
+	// only perform gameplay drawing and updating if a kart has been chosen
 	if (kartChoice) {
 		glClear( GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT );
 		glColor3f( 0, 1, 1 );
@@ -144,7 +145,9 @@ void OnDraw(){
 		glPopMatrix();
 		myTrack->draw();
 
-		// display time to the window
+		// display lap, time, speed, and best lap time to the window
+		// text is displayed to the screen using glut bitmap and updating raster position
+		// this allows text to be overlayed to the screen where raster position is set to
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
@@ -154,13 +157,15 @@ void OnDraw(){
 		glLoadIdentity();
 		glDisable(GL_LIGHTING);
 		glColor3f(0.9,1.0,1.0);
-		glRasterPos2f(10,20);
+		glRasterPos2f(10,20);		// set raster position for text
+		// string stream is used to concatenate number variables with text string
 		std::stringstream s;
 		s << "LAP: " << uKart->getLap_n()+1;
 		std::string text = s.str();
-		for (int i = 0; i < text.size(); ++i) {
+		for (int i = 0; i < text.size(); ++i) {		// loop to display each character to the screen
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 		}
+		// clear strings and reset raster position
 		s.str("");
 		text.clear();
 		glRasterPos2f(10,50);
@@ -169,6 +174,7 @@ void OnDraw(){
 		for (int i = 0; i < text.size(); ++i) {
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 		}
+		// clear strings and reset raster position
 		s.str("");
 		text.clear();
 		glRasterPos2f(10,80);
@@ -177,6 +183,7 @@ void OnDraw(){
 		for (int i = 0; i < text.size(); ++i) {
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 		}
+		// clear strings and reset raster position
 		s.str("");
 		text.clear();
 		glRasterPos2f(10,110);
@@ -195,8 +202,8 @@ void OnDraw(){
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,text[i]);
 			}
 		}
-		if (uKart->wrongWay() == 1)
-		{
+		// display wrong way to the screen if wrongWay() function returns 1
+		if (uKart->wrongWay() == 1) {
 			s.str("");
 			text.clear();
 			glRasterPos2f(10, 170);
@@ -213,9 +220,11 @@ void OnDraw(){
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
+	// if no kart has been chosen then a menu must still be on the screen
 	} else {
+		// code after this displays different menus
+		// WELCOME TO MARIO KART always displays
 		glClear( GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT );
-		// display menu to the window
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
@@ -234,6 +243,7 @@ void OnDraw(){
 		}
 		s.str("");
 		text.clear();
+		// if no track has been chosen yet, then the track choice menu displays
 		if (!trackChoice) {
 			glRasterPos2f(300,400);
 			text = "Choose your track:";
@@ -260,6 +270,7 @@ void OnDraw(){
 			glMatrixMode(GL_PROJECTION);
 			glPopMatrix();
 			glMatrixMode(GL_MODELVIEW);
+		// if track has been chosen, then the kart choice menu displays
 		} else {
 			glRasterPos2f(300,400);
 			text = "Choose your kart:";
