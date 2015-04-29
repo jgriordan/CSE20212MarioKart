@@ -1,3 +1,5 @@
+// the "hard track" inheriting from the abstract track
+
 #ifndef TRACK2_H
 #define TRACK2_H
 

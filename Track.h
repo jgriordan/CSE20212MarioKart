@@ -1,3 +1,5 @@
+// abstract class used to control the track
+
 #ifndef TRACK_H
 #define TRACK_H
 

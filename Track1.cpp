@@ -4,10 +4,12 @@ Track1::Track1(){
 
 }
 
+// draw the entire track by segment
 void Track1::draw(){
 	int x, z;
 	float col;
 	glPushMatrix();
+	// starting location for drawing
 	glTranslatef(-9.75,-1,0);
 	for( z=0; z<2640; z++ ){
 		//determine colors for rainbow
@@ -128,6 +130,7 @@ void Track1::draw(){
 	glPopMatrix();
 }
 
+// checks by segments to see if the specified x,z location is on the track
 int Track1::isOnTrack( float x, float z ){
 	if( x > -10 && x < 10 && z >= -240 && z <= 240 )
 		return 1;
@@ -149,6 +152,7 @@ int Track1::isOnTrack( float x, float z ){
 		return 0;
 }
 
+// looks by segment to return the center x value of the track nearest the kart
 float Track1::toMiddleX(float x, float z){
 	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
 		return 0;
@@ -170,6 +174,7 @@ float Track1::toMiddleX(float x, float z){
 		return 0;
 }
 
+// looks by segment to return the center z value of the track nearest the kart
 float Track1::toMiddleZ(float x, float z){
 	if( ( ( x <= -10 && x > -15 ) || ( x >= 10 && x < 15 ) ) && z >= -240 && z <= 240 )
 		return z;
