@@ -1,23 +1,32 @@
+// .cpp file for camera control
 #include "Camera.h"
 
+// default constructor
 Camera::Camera(){
+	// look from (0, 10, -20)
 	eyeX = 0;
 	eyeY = 10;
 	eyeZ = -20;
+	// look at (0, 0, 0)
 	centerX = 0;
 	centerY = 0;
 	centerZ = 0;
+	// no rotation
 	angle = 0;
+	// x,y distance from look at is 20
 	radius = 20;
 }
 
 Camera::Camera( float eX, float eY, float eZ, float cX, float cY, float cZ ){
+	// look from choice
 	eyeX = eX;
 	eyeY = eY;
 	eyeZ = eZ;
+	// look at choice
 	centerX = cX;
 	centerY = cY;
 	centerZ = cZ;
+	// calculate starting angle based on x and z
 	if( eX == 0 && eZ > 0 )
 		angle = 90;
 	else if( eX == 0 && eZ < 0 )
@@ -26,50 +35,23 @@ Camera::Camera( float eX, float eY, float eZ, float cX, float cY, float cZ ){
 		angle = 0;
 	else
 		angle = atan( eZ / eX ) / M_PI * 180;
+	// calculate distance from look at based on x and z
 	radius = sqrt( eX*eX + eZ*eZ );
 }
 
+// call glut function to update camera
 void Camera::updateLookAt(){
 	gluLookAt( eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0 );
 }
 
+// given a kart location, decide values to look at and from
 void Camera::KartLocation( float x, float y, float z, float a ){
+	// look at kart
 	centerX = x;
 	centerY = y;
 	centerZ = z;
+	// look from up 10, and behind the kart radius away
 	eyeY = y+10;
 	eyeZ = z-radius*sin(a);
 	eyeX = x+radius*cos(a);
 }
-
-/*void Camera::setAngle( float n ){
-	std::cout << "Set Angle function" << std::endl;
-	std::cout << "eyeX: " << eyeX << std::endl;
-	std::cout << "eyeY: " << eyeY << std::endl;
-	std::cout << "eyeZ: " << eyeZ << std::endl;
-	std::cout << "angle: " << angle << std::endl;
-	angle = n;
-	while( angle >= 360 )
-		angle -= 360;
-	while( angle < 0 )
-		angle += 360;
-	eyeX = radius * cos( angle / 180 * M_PI );
-	eyeZ = radius * sin( angle / 180 * M_PI );
-	std::cout << "eyeX: " << eyeX << std::endl;
-	std::cout << "eyeY: " << eyeY << std::endl;
-	std::cout << "eyeZ: " << eyeZ << std::endl;
-	std::cout << "angle: " << angle << std::endl;
-}
-
-void Camera::rotateCCW( float degrees ){
-	setAngle( angle - degrees );
-}
-
-void Camera::rotateCW( float degrees){
-	setAngle( angle + degrees );
-}
-
-void Camera::moveForward( float units ){
-	centerZ += units;
-	eyeZ += units;
-}*/
