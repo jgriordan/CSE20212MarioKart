@@ -304,10 +304,13 @@ void OnExit(){}
 // part that actually runs
 int main( int argc, char** argv ){
 	std::string song;
-	if (myrandom(2)==1)//Randomly pick a song to play for the ride.
+	int y=myrandom(3);
+	if (y==1)//Randomly pick a song to play for the ride.
 		song="Heman.wav";
-	else
+	else if (y==2)
 		song="Nyan.wav";
+	else
+		song="Troll.wav";
 	Mix_OpenAudio(41000,MIX_DEFAULT_FORMAT,2,4096); 
         music=Mix_LoadMUS(song.c_str());
 
