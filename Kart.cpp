@@ -60,7 +60,8 @@ void Kart :: setChoice(int c){
 	choice=c;//Set Kart Choice
 }			
 
-float Kart::getX(){//The following functions get the x,y, and z position of the kart.
+// The following functions get the x,y, and z position of the kart.
+float Kart::getX(){
 	return x_pos;
 }
 
@@ -72,12 +73,15 @@ float Kart::getZ(){
 	return z_pos;
 }
 
-void Kart::setLocation( float x, float y, float z ){//Used to reset the Kart after falling off of the edge.
+// update the kart's location
+void Kart::setLocation( float x, float y, float z ){
+	// location is on track- set it
 	if( myTrack->isOnTrack( x, z ) ){
 		x_pos = x;
 		y_pos = y;
 		z_pos = z;
 	}
+	// location isn't on track- kill speed and put kart in middle of track
 	else{
 		speed = 0;
 		x_pos = myTrack->toMiddleX( x, z );
